@@ -1,0 +1,3 @@
+num_nodes:2708
+num_edges:10556
+feature_dim:1433

@@ -1,0 +1,4 @@
+.venv
+.vscode
+dataset/raw/
+__pycache__
