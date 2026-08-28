@@ -176,6 +176,35 @@ VertexData Graph::getVertex(int v) const {
     return vertex_data;
 }
 
+std::vector<int> Graph::getEdgeSrc() const {
+    std::vector<int> edge_src(num_edges);
+    
+    for (int u = 0; u < num_nodes; u++) {
+        int start_idx = row_pointers[u];
+        int end_idx = row_pointers[u + 1];
+        
+        for (int e = start_idx; e < end_idx; e++) {
+            edge_src[e] = u;
+        }
+    }
+    
+    return edge_src;
+}
+
+const std::vector<int>& Graph::getEdgeDest() const {
+    return column_indices;
+}
+
+std::vector<int> Graph::getInDegree() const {
+    std::vector<int> in_degree(num_nodes, 0);
+    for (int e = 0; e < num_edges; e++) {
+        int dest = column_indices[e];
+        if (dest >= 0 && dest < num_nodes) {
+            in_degree[dest]++;
+        }
+    }
+    return in_degree;
+}
 
 //Test
 #define TEST 0
