@@ -1,0 +1,256 @@
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+#include <string>
+#include <cuda_runtime.h>
+#include "../../../../utilities/graph.h"
+#include "../../../../utilities/inference.h"
+
+// Funzione per la gestione degli errori CUDA
+void checkCudaError(cudaError_t err) {
+    if (err != cudaSuccess) {
+        std::cerr << "Errore CUDA: " << cudaGetErrorString(err) << std::endl;
+        exit(EXIT_FAILURE);
+    }
+}
+
+// Kernel 1. Aggregazione: parte relativa alla somma dei vettori m (un thread per arco)
+__global__ void aggregate_kernel(const int* edge_src, const int* edge_dest, const float* h_current, float* m_all, int num_edges, int feature_dim) {
+    int e = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    if (e < num_edges) {
+        int u = edge_src[e];
+        int v = edge_dest[e];
+        for (int f = 0; f < feature_dim; f++) {
+            //Accesso non coalescente
+            atomicAdd(&m_all[v * feature_dim + f], h_current[u * feature_dim + f]);
+        }
+    }
+}
+
+// Kernel 2. Calcolo della media per i vettori m, esecuzione fase di update e ReLU (un thread per nodo)
+__global__ void update_kernel(const float* h_current, float* m_all, const float* W, float* h_next, const int* in_degree, int num_nodes, int current_dim, int next_dim) {
+    int v = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    if (v < num_nodes) {
+        int deg = in_degree[v];
+        
+        //Calcolo della media
+        for (int j = 0; j < current_dim; j++) {
+            //Accesso non coalescente
+            m_all[v * current_dim + j] = (deg > 0) ? (m_all[v * current_dim + j] / (float)deg) : h_current[v * current_dim + j];
+        }
+        
+        //Fase di update
+        for (int i = 0; i < next_dim; i++) {
+            float dot_product = 0.0f;
+            for (int j = 0; j < current_dim; j++) {
+                //Accesso condiviso: W
+                //Accesso non coalescente: m_all
+                dot_product += W[i * current_dim + j] * m_all[v * current_dim + j];
+            }
+            //ReLU
+            //Accesso non coalescente
+            h_next[v * next_dim + i] = fmax(0.0f, dot_product);
+        }
+    }
+}
+
+// Kernel 3. Softmax (un thread per nodo)
+__global__ void softmax_kernel(float* h_current, int num_nodes, int num_classes) {
+    int v = blockIdx.x * blockDim.x + threadIdx.x;
+    
+    if (v < num_nodes) {
+        //Accesso non coalescente
+        float max_logit = h_current[v * num_classes + 0];
+        
+        //Ricerca del massimo valore nel vettore h
+        for (int c = 1; c < num_classes; c++) {
+            //Accesso non coalescente
+            if (h_current[v * num_classes + c] > max_logit) {
+                max_logit = h_current[v * num_classes + c];
+            }
+        }
+
+        //Calcolo somma esponenziale
+        float sum_exp = 0.0f;
+        for (int c = 0; c < num_classes; c++) {
+            //Accesso non coalescente
+            h_current[v * num_classes + c] = expf(h_current[v * num_classes + c] - max_logit);
+            sum_exp += h_current[v * num_classes + c];
+        }
+
+        //Calcolo vettore h
+        for (int c = 0; c < num_classes; c++) {
+            //Accesso non coalescente
+            h_current[v * num_classes + c] /= sum_exp;
+        }
+    }
+}
+
+
+int main(int argc, char* argv[]){
+    if (argc < 5) {
+        std::cerr << "Errore: Parametri mancanti." << std::endl;
+        std::cerr << "Uso: " << argv[0] << " <nome_dataset> <hidden_dim> <num_classes> <num_layers>" << std::endl;
+        return 1;
+    }
+
+    std::string dataset_name = argv[1];
+    int hidden_dim = std::stoi(argv[2]);
+    int num_classes = std::stoi(argv[3]);
+    int num_layers = std::stoi(argv[4]);
+
+    if (num_layers < 1) {
+        std::cerr << "Errore: Il numero di layer deve essere almeno 1." << std::endl;
+        return 1;
+    }
+
+    // Controllo della disponibilità di una GPU CUDA
+    int deviceCount = 0;
+    checkCudaError(cudaGetDeviceCount(&deviceCount));
+    if (deviceCount == 0) {
+        std::cerr << "Errore: Nessun dispositivo GPU abilitato CUDA rilevato." << std::endl;
+        return 1;
+    }
+    int device;
+    checkCudaError(cudaGetDevice(&device));
+
+    std::string folderPath = "../../../../../dataset/converted/" + dataset_name;
+    Graph g;
+    int num_edges, num_nodes, feature_dim;
+
+    std::cout << "========================================" << std::endl;
+    std::cout << "Dataset: " << dataset_name << std::endl;
+    std::cout << "Layer (L): " << num_layers << " | Hidden Dim: " << hidden_dim << " | Classi: " << num_classes << std::endl;
+    std::cout << "Modalità: CUDA Edge-Parallel (1 Thread per Arco)" << std::endl;
+    std::cout << "Dispositivo GPU CUDA in uso: " << device << std::endl;
+    std::cout << "Percorso: " << folderPath << std::endl;
+    std::cout << "========================================" << std::endl;
+
+    if (!g.loadGraph(folderPath)) {
+        std::cerr << "Errore nel caricamento del grafo!" << std::endl;
+        return 1;
+    }
+    
+    num_edges = g.getNumEdges();
+    num_nodes = g.getNumNodes();
+    feature_dim = g.getFeatureDim();
+
+    // Creazione dinamica dei pesi (W)
+    std::vector<LayerWeights> W;
+    if (num_layers == 1) {
+        W.push_back(LayerWeights(feature_dim, num_classes));
+    } else {
+        W.push_back(LayerWeights(feature_dim, hidden_dim));
+        for (int l = 1; l < num_layers - 1; ++l) {
+            W.push_back(LayerWeights(hidden_dim, hidden_dim));
+        }
+        W.push_back(LayerWeights(hidden_dim, num_classes));
+    }
+
+    // Calcolo della dimensione totale e salvataggio degli offset di partenza per W
+    int total_weights_size = 0;
+    std::vector<int> weight_offsets(num_layers, 0);
+    for (int l = 0; l < num_layers; l++) {
+        weight_offsets[l] = total_weights_size;
+        total_weights_size += W[l].W.size();
+    }
+
+    // Copia di tutti i pesi in un unico array host
+    std::vector<float> h_W_all(total_weights_size);
+    for (int l = 0; l < num_layers; l++) {
+        std::copy(W[l].W.begin(), W[l].W.end(), h_W_all.begin() + weight_offsets[l]);
+    }
+
+    // Preparazione dei dati host
+    std::vector<int> h_edge_src = g.getEdgeSrc();
+    const std::vector<int>& h_edge_dest = g.getEdgeDest();
+    std::vector<int> h_in_degree = g.getInDegree();
+    const std::vector<float>& h_h_current = g.getNodeFeatures();
+
+    // Allocazione memoria device
+    int *d_edge_src, *d_edge_dest, *d_in_degree;
+    float *d_h_current, *d_h_next, *d_m_all, *d_W_all;
+
+    checkCudaError(cudaMalloc(&d_edge_src, num_edges * sizeof(int)));
+    checkCudaError(cudaMalloc(&d_edge_dest, num_edges * sizeof(int)));
+    checkCudaError(cudaMalloc(&d_in_degree, num_nodes * sizeof(int)));
+    
+    // Vettori per h_current, h_next e m_all
+    // Si considera come dimensione il caso peggiore
+    int max_dim = std::max({feature_dim, hidden_dim, num_classes});
+    checkCudaError(cudaMalloc(&d_h_next, num_nodes * max_dim * sizeof(float)));
+    checkCudaError(cudaMalloc(&d_m_all, num_nodes * max_dim * sizeof(float)));
+    checkCudaError(cudaMalloc(&d_h_current, num_nodes * max_dim * sizeof(float)));
+    
+    // Allocazione per tutti i pesi
+    checkCudaError(cudaMalloc(&d_W_all, total_weights_size * sizeof(float)));
+
+    // Trasferimento topologia grafo, feature Iniziali e pesi su GPU
+    checkCudaError(cudaMemcpy(d_edge_src, h_edge_src.data(), num_edges * sizeof(int), cudaMemcpyHostToDevice));
+    checkCudaError(cudaMemcpy(d_edge_dest, h_edge_dest.data(), num_edges * sizeof(int), cudaMemcpyHostToDevice));
+    checkCudaError(cudaMemcpy(d_in_degree, h_in_degree.data(), num_nodes * sizeof(int), cudaMemcpyHostToDevice));
+    checkCudaError(cudaMemcpy(d_h_current, h_h_current.data(), num_nodes * feature_dim * sizeof(float), cudaMemcpyHostToDevice));
+    checkCudaError(cudaMemcpy(d_W_all, h_W_all.data(), total_weights_size * sizeof(float), cudaMemcpyHostToDevice));
+
+    std::cout << "Inizio elaborazione inference CUDA..." << std::endl;
+    
+    int current_dim = feature_dim;
+    for (int l = 0; l < W.size(); l++) {
+        int next_dim = W[l].out_dim;
+        float* d_W_current_layer = d_W_all + weight_offsets[l];
+
+        // Inizializzazione a zero del vettore m_all
+        checkCudaError(cudaMemset(d_m_all, 0, num_nodes * current_dim * sizeof(float)));
+
+        // Configurazione delle griglie
+        int threadsPerBlock = 256;
+        int blocksPerGridEdges = (num_edges + threadsPerBlock - 1) / threadsPerBlock;
+        int blocksPerGridNodes = (num_nodes + threadsPerBlock - 1) / threadsPerBlock;
+
+        // Aggregazione
+        aggregate_kernel<<<blocksPerGridEdges, threadsPerBlock>>>(d_edge_src, d_edge_dest, d_h_current, d_m_all, num_edges, current_dim);
+        checkCudaError(cudaGetLastError());
+
+        // Update
+        update_kernel<<<blocksPerGridNodes, threadsPerBlock>>>(d_h_current, d_m_all, d_W_current_layer, d_h_next, d_in_degree, num_nodes, current_dim, next_dim);
+        checkCudaError(cudaGetLastError());
+
+        // Scambio dei puntatori per il layer successivo e aggiornamento della dimensione
+        float* temp = d_h_current;
+        d_h_current = d_h_next;
+        d_h_next = temp;
+
+        current_dim = next_dim;
+
+        std::cout << "-> Livello " << l + 1 << "/" << num_layers << " completato." << std::endl;
+    }
+
+    std::cout << "Calcolo Softmax..." << std::endl;
+    
+    // Esecuzione Softmax
+    int threadsPerBlock = 256;
+    int blocksPerGridNodes = (num_nodes + threadsPerBlock - 1) / threadsPerBlock;
+    softmax_kernel<<<blocksPerGridNodes, threadsPerBlock>>>(d_h_current, num_nodes, num_classes);
+    checkCudaError(cudaGetLastError());
+    checkCudaError(cudaDeviceSynchronize());
+
+    // Copia dell'output sul vettore host finale
+    std::vector<float> h_output(num_nodes * num_classes, 0.0f);
+    checkCudaError(cudaMemcpy(h_output.data(), d_h_current, num_nodes * num_classes * sizeof(float), cudaMemcpyDeviceToHost));
+
+    std::cout << "Elaborazione conclusa con successo!" << std::endl;
+
+    // Pulizia finale della memoria GPU
+    checkCudaError(cudaFree(d_edge_src));
+    checkCudaError(cudaFree(d_edge_dest));
+    checkCudaError(cudaFree(d_in_degree));
+    checkCudaError(cudaFree(d_h_current));
+    checkCudaError(cudaFree(d_h_next));
+    checkCudaError(cudaFree(d_m_all));
+    checkCudaError(cudaFree(d_W_all));
+
+    return 0;
+}
