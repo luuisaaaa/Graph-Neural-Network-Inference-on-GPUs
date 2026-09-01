@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cuda_runtime.h>
+#include "../../../../utilities/benchmark.h"
 #include "../../../../utilities/graph.h"
 #include "../../../../utilities/inference.h"
 
@@ -143,6 +144,10 @@ int main(int argc, char* argv[]) {
     constexpr int threads = 256;
     const int node_blocks = (num_nodes + threads - 1) / threads;
     int current_dim = feature_dim;
+    cudaEvent_t inference_begin, inference_end;
+    checkCuda(cudaEventCreate(&inference_begin));
+    checkCuda(cudaEventCreate(&inference_end));
+    checkCuda(cudaEventRecord(inference_begin));
     std::cout << "Inizio elaborazione inference CUDA...\n";
     for (int l = 0; l < num_layers; ++l) {
         const int next_dim = weights[l].out_dim;
@@ -163,9 +168,16 @@ int main(int argc, char* argv[]) {
     }
     softmax_kernel<<<node_blocks, threads>>>(d_current, num_nodes, num_classes);
     checkCuda(cudaGetLastError());
-    checkCuda(cudaDeviceSynchronize());
+    checkCuda(cudaEventRecord(inference_end));
+    checkCuda(cudaEventSynchronize(inference_end));
+    float inference_ms = 0.0f;
+    checkCuda(cudaEventElapsedTime(&inference_ms, inference_begin, inference_end));
     std::vector<float> output(static_cast<size_t>(num_nodes) * num_classes);
     checkCuda(cudaMemcpy(output.data(), d_current, output.size() * sizeof(float), cudaMemcpyDeviceToHost));
+    reportResults("cuda-message-batching-basic", output, graph.getLabels(), num_nodes, num_edges,
+                  num_classes, num_layers, inference_ms);
+    checkCuda(cudaEventDestroy(inference_begin));
+    checkCuda(cudaEventDestroy(inference_end));
     checkCuda(cudaFree(d_sources)); checkCuda(cudaFree(d_destinations)); checkCuda(cudaFree(d_degree));
     checkCuda(cudaFree(d_current)); checkCuda(cudaFree(d_next)); checkCuda(cudaFree(d_aggregated));
     checkCuda(cudaFree(d_weights));
