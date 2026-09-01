@@ -3,6 +3,7 @@
 #include <cmath>
 #include <algorithm>
 #include <string>
+#include "../utilities/benchmark.h"
 #include "../utilities/graph.h"
 #include "../utilities/inference.h"
 
@@ -69,6 +70,7 @@ int main(int argc, char* argv[])
     }
 
     std::cout << "Inizio elaborazione inference..." << std::endl;
+    const auto inference_begin = BenchmarkClock::now();
 
     //Iterazione su tutti i layer L della rete
     int current_dim = feature_dim;
@@ -155,6 +157,15 @@ int main(int argc, char* argv[])
             h_current[v][c] /= sum_exp;
         }
     }
+
+    const auto inference_end = BenchmarkClock::now();
+    std::vector<float> output(static_cast<size_t>(num_nodes) * num_classes);
+    for (int v = 0; v < num_nodes; ++v) {
+        std::copy(h_current[v].begin(), h_current[v].end(),
+                  output.begin() + static_cast<size_t>(v) * num_classes);
+    }
+    reportResults("sequential", output, g.getLabels(), num_nodes, num_edges, num_classes,
+                  num_layers, elapsedMilliseconds(inference_begin, inference_end));
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
     return 0;

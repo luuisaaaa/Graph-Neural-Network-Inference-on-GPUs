@@ -1,6 +1,7 @@
 #include <vector>
-#include <cstdlib>
 #include <algorithm>
+#include <limits>
+#include <random>
 #include "inference.h"
 
 //Genera in modo casuale la matrice W^l
@@ -11,9 +12,12 @@ LayerWeights::LayerWeights(int in, int out) {
     int total_elements = in * out;
     this->W.resize(total_elements);
 
-    // Singolo ciclo for su tutti gli elementi contigui
+    // Seed fisso e generatore standard: eseguibili diversi ricevono gli stessi
+    // pesi, requisito necessario per confrontare gli output numerici.
+    static std::mt19937 generator(42);
     for (int i = 0; i < total_elements; ++i) {
-        this->W[i] = (float)rand() / (float)RAND_MAX;
+        this->W[i] = static_cast<float>(generator()) /
+                     static_cast<float>(std::numeric_limits<std::mt19937::result_type>::max());
     }
 }
 
