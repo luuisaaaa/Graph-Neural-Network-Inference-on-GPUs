@@ -6,6 +6,7 @@
 
 #include <cuda_runtime.h>
 
+#include "../../../../utilities/benchmark.h"
 #include "../../../../utilities/graph.h"
 #include "../../../../utilities/inference.h"
 
@@ -177,6 +178,10 @@ int main(int argc, char* argv[]) {
     constexpr int threads_per_block = 256;
     const int blocks_per_grid = (num_nodes + threads_per_block - 1) / threads_per_block;
     int current_dim = feature_dim;
+    cudaEvent_t inference_begin, inference_end;
+    checkCudaError(cudaEventCreate(&inference_begin));
+    checkCudaError(cudaEventCreate(&inference_end));
+    checkCudaError(cudaEventRecord(inference_begin));
     std::cout << "Inizio elaborazione inference CUDA..." << std::endl;
     for (int layer = 0; layer < num_layers; ++layer) {
         const int next_dim = weights[layer].out_dim;
@@ -193,11 +198,18 @@ int main(int argc, char* argv[]) {
     std::cout << "Calcolo Softmax..." << std::endl;
     softmax_kernel<<<blocks_per_grid, threads_per_block>>>(device_current, num_nodes, num_classes);
     checkCudaError(cudaGetLastError());
-    checkCudaError(cudaDeviceSynchronize());
+    checkCudaError(cudaEventRecord(inference_end));
+    checkCudaError(cudaEventSynchronize(inference_end));
+    float inference_ms = 0.0f;
+    checkCudaError(cudaEventElapsedTime(&inference_ms, inference_begin, inference_end));
 
     std::vector<float> output(static_cast<size_t>(num_nodes) * num_classes);
     checkCudaError(cudaMemcpy(output.data(), device_current, output.size() * sizeof(float),
                               cudaMemcpyDeviceToHost));
+    reportResults("cuda-vertex-basic", output, graph.getLabels(), num_nodes, num_edges,
+                  num_classes, num_layers, inference_ms);
+    checkCudaError(cudaEventDestroy(inference_begin));
+    checkCudaError(cudaEventDestroy(inference_end));
 
     checkCudaError(cudaFree(device_row_pointers));
     checkCudaError(cudaFree(device_column_indices));

@@ -6,6 +6,7 @@
 
 #include <omp.h>
 
+#include "../../utilities/benchmark.h"
 #include "../../utilities/graph.h"
 #include "../../utilities/inference.h"
 
@@ -65,6 +66,7 @@ int main(int argc, char* argv[]) {
     std::vector<float> h_current = graph.getNodeFeatures();
 
     std::cout << "Inizio elaborazione inference..." << std::endl;
+    const auto inference_begin = BenchmarkClock::now();
     int current_dim = feature_dim;
     for (int layer = 0; layer < num_layers; ++layer) {
         const int next_dim = weights[layer].out_dim;
@@ -131,6 +133,11 @@ int main(int argc, char* argv[]) {
             h_current[offset + class_id] /= sum_exp;
         }
     }
+
+    const auto inference_end = BenchmarkClock::now();
+    reportResults("cpu-vertex-parallel", h_current, graph.getLabels(), num_nodes,
+                  graph.getNumEdges(), num_classes, num_layers,
+                  elapsedMilliseconds(inference_begin, inference_end));
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
     return 0;
