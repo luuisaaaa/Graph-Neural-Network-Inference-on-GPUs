@@ -3,9 +3,12 @@
 #include <cmath>
 #include <algorithm>
 #include <string>
+#include <fstream>
+#include <iostream>
 #include <cuda_runtime.h>
-#include "../../../../utilities/graph.h"
-#include "../../../../utilities/inference.h"
+#include "../../../utilities/benchmark.h"
+#include "../../../utilities/graph.h"
+#include "../../../utilities/inference.h"
 
 // Funzione per la gestione degli errori CUDA
 void checkCudaError(cudaError_t err) {
@@ -179,7 +182,6 @@ int main(int argc, char* argv[]){
     checkCudaError(cudaMalloc(&d_in_degree, num_nodes * sizeof(int)));
     
     // Vettori per h_current, h_next e m_all
-    // Si considera come dimensione il caso peggiore
     int max_dim = std::max({feature_dim, hidden_dim, num_classes});
     checkCudaError(cudaMalloc(&d_h_next, num_nodes * max_dim * sizeof(float)));
     checkCudaError(cudaMalloc(&d_m_all, num_nodes * max_dim * sizeof(float)));
@@ -195,7 +197,15 @@ int main(int argc, char* argv[]){
     checkCudaError(cudaMemcpy(d_h_current, h_h_current.data(), num_nodes * feature_dim * sizeof(float), cudaMemcpyHostToDevice));
     checkCudaError(cudaMemcpy(d_W_all, h_W_all.data(), total_weights_size * sizeof(float), cudaMemcpyHostToDevice));
 
+    // Creazione dei CUDA events
+    cudaEvent_t inference_begin, inference_end;
+    checkCudaError(cudaEventCreate(&inference_begin));
+    checkCudaError(cudaEventCreate(&inference_end));
+
     std::cout << "Inizio elaborazione inference CUDA..." << std::endl;
+
+    // Inserimento dell'evento inference_begin 
+    checkCudaError(cudaEventRecord(inference_begin));
     
     int current_dim = feature_dim;
     for (int l = 0; l < W.size(); l++) {
@@ -218,7 +228,7 @@ int main(int argc, char* argv[]){
         update_kernel<<<blocksPerGridNodes, threadsPerBlock>>>(d_h_current, d_m_all, d_W_current_layer, d_h_next, d_in_degree, num_nodes, current_dim, next_dim);
         checkCudaError(cudaGetLastError());
 
-        // Scambio dei puntatori per il layer successivo e aggiornamento della dimensione
+        // Scambio dei puntatori
         float* temp = d_h_current;
         d_h_current = d_h_next;
         d_h_next = temp;
@@ -235,7 +245,16 @@ int main(int argc, char* argv[]){
     int blocksPerGridNodes = (num_nodes + threadsPerBlock - 1) / threadsPerBlock;
     softmax_kernel<<<blocksPerGridNodes, threadsPerBlock>>>(d_h_current, num_nodes, num_classes);
     checkCudaError(cudaGetLastError());
-    checkCudaError(cudaDeviceSynchronize());
+
+    // Inserimento dell'evento inference_end 
+    checkCudaError(cudaEventRecord(inference_end));
+    
+    // Attesa che l'evento inference_end venga gestito
+    checkCudaError(cudaEventSynchronize(inference_end));
+
+    // Calcolo tempo di esecuzione
+    float inference_ms = 0.0f;
+    checkCudaError(cudaEventElapsedTime(&inference_ms, inference_begin, inference_end));
 
     // Copia dell'output sul vettore host finale
     std::vector<float> h_output(num_nodes * num_classes, 0.0f);
@@ -243,7 +262,12 @@ int main(int argc, char* argv[]){
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
 
-    // Pulizia finale della memoria GPU
+    // Stampa standardizzata del throughput e del tempo
+    reportResults("cuda-edge-parallel-basic", num_nodes, num_edges, num_classes, num_layers, inference_ms);
+
+    // Pulizia finale della memoria GPU e degli eventi
+    checkCudaError(cudaEventDestroy(inference_begin));
+    checkCudaError(cudaEventDestroy(inference_end));
     checkCudaError(cudaFree(d_edge_src));
     checkCudaError(cudaFree(d_edge_dest));
     checkCudaError(cudaFree(d_in_degree));

@@ -6,6 +6,7 @@
 #include <omp.h>
 #include "../../utilities/graph.h"
 #include "../../utilities/inference.h"
+#include "../../utilities/benchmark.h"
 
 int main(int argc, char* argv[])
 {
@@ -74,6 +75,7 @@ int main(int argc, char* argv[])
 
     //Iterazione su tutti i layer L della rete
     std::cout << "Inizio elaborazione inference..." << std::endl;
+    const auto inference_begin = BenchmarkClock::now();
     int current_dim = feature_dim;
     for (int l = 0; l < W.size(); l++) {
         int next_dim = W[l].out_dim;
@@ -144,7 +146,11 @@ int main(int argc, char* argv[])
             h_current[v][c] /= sum_exp;
         }
     }
+    const auto inference_end = BenchmarkClock::now();
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
+
+    reportResults("cpu-edge-parallel", num_nodes, num_edges, num_classes, num_layers,
+                  elapsedMilliseconds(inference_begin, inference_end));
     return 0;
 }

@@ -3,9 +3,12 @@
 #include <cmath>
 #include <algorithm>
 #include <string>
+#include <fstream>
+#include <iostream>
 #include <cuda_runtime.h>
-#include "../../../../utilities/graph.h"
-#include "../../../../utilities/inference.h"
+#include "../../../utilities/benchmark.h"
+#include "../../../utilities/graph.h"
+#include "../../../utilities/inference.h"
 
 // Funzione per la gestione degli errori CUDA
 void checkCudaError(cudaError_t err) {
@@ -243,7 +246,15 @@ int main(int argc, char* argv[]){
     checkCudaError(cudaMemcpy(d_h_current, h_h_current.data(), num_nodes * feature_dim * sizeof(float), cudaMemcpyHostToDevice));
     checkCudaError(cudaMemcpy(d_W_all, h_W_all.data(), total_weights_size * sizeof(float), cudaMemcpyHostToDevice));
 
+    // Creazione dei CUDA events
+    cudaEvent_t inference_begin, inference_end;
+    checkCudaError(cudaEventCreate(&inference_begin));
+    checkCudaError(cudaEventCreate(&inference_end));
+
     std::cout << "Inizio elaborazione inference CUDA..." << std::endl;
+
+    // Inserimento dell'evento inference_begin 
+    checkCudaError(cudaEventRecord(inference_begin));
     
     int current_dim = feature_dim;
     for (int l = 0; l < W.size(); l++) {
@@ -283,13 +294,27 @@ int main(int argc, char* argv[]){
     dim3 blocksPerGridNodesSoftmax((num_nodes + threadsPerBlockSoftmax.y - 1) / threadsPerBlockSoftmax.y, 1);
     softmax_kernel<<<blocksPerGridNodesSoftmax, threadsPerBlockSoftmax>>>(d_h_current, num_nodes, num_classes);
     checkCudaError(cudaGetLastError());
-    checkCudaError(cudaDeviceSynchronize());
+    
+    // Inserimento dell'evento inference_begin 
+    checkCudaError(cudaEventRecord(inference_end));
+
+    // Attesa che l'evento inference_end venga gestito
+    checkCudaError(cudaEventSynchronize(inference_end));
+
+    // Calcolo tempo di esecuzione
+    float inference_ms = 0.0f;
+    checkCudaError(cudaEventElapsedTime(&inference_ms, inference_begin, inference_end));
 
     // Copia dell'output sul vettore host finale
     std::vector<float> h_output(num_nodes * num_classes, 0.0f);
     checkCudaError(cudaMemcpy(h_output.data(), d_h_current, num_nodes * num_classes * sizeof(float), cudaMemcpyDeviceToHost));
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
+
+    reportResults("cuda-edge-parallel-improved", num_nodes, num_edges, num_classes, num_layers, inference_ms);
+
+    checkCudaError(cudaEventDestroy(inference_begin));
+    checkCudaError(cudaEventDestroy(inference_end));
 
     // Pulizia finale della memoria GPU
     checkCudaError(cudaFree(d_edge_src));
