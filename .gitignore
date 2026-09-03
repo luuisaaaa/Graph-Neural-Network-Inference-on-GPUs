@@ -2,3 +2,8 @@
 .vscode
 dataset/raw/
 __pycache__
+labels.txt
+metadata.txt
+column_indices.txt
+node_features.txt
+row_pointers.txt
