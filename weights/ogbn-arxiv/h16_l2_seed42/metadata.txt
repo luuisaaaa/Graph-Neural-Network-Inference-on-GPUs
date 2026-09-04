@@ -1,0 +1,8 @@
+format_version:1
+dataset:ogbn-arxiv
+seed:42
+num_layers:2
+layer_0_in:128
+layer_0_out:16
+layer_1_in:16
+layer_1_out:40

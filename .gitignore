@@ -1,4 +1,8 @@
 .venv
 .vscode
 dataset/raw/
+dataset/converted/PubMed/
+dataset/converted/ogbn-arxiv/
+datasets/
+.DS_Store
 __pycache__
