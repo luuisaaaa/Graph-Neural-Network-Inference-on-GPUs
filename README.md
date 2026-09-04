@@ -19,7 +19,7 @@ Comparable outputs and benchmarks
 ---------------------------------
 
 Executables print a machine-readable `RESULT` line containing inference time,
-nodes/s, messages/s, checksums, and accuracy. Data loading and host-device
+graph nodes/s, node updates/s, messages/s, memory estimates, and checksums. Data loading and host-device
 copies are excluded from `inference_ms`; CUDA uses events so asynchronous
 kernel execution is measured correctly.
 
@@ -31,6 +31,11 @@ Set `GCN_OUTPUT_FILE` to save every final probability:
 
 The comparator uses numerical tolerances because parallel floating-point
 reductions may sum messages in a different order.
+
+Memory fields distinguish CSR topology, input features, labels, weights,
+temporary working buffers, and allocations on the CUDA device. The total is an
+algorithmic estimate based on owned arrays; allocator overhead and process/runtime
+memory are intentionally excluded.
 
 Synthetic graphs
 ----------------

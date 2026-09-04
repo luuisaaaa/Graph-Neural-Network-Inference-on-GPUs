@@ -164,8 +164,17 @@ int main(int argc, char* argv[])
         std::copy(h_current[v].begin(), h_current[v].end(),
                   output.begin() + static_cast<size_t>(v) * num_classes);
     }
+    std::uint64_t weight_elements = 0;
+    for (const LayerWeights& layer_weights : W) weight_elements += layer_weights.W.size();
+    const int max_dim = std::max({feature_dim, hidden_dim, num_classes});
+    const std::uint64_t working_bytes =
+        2ULL * num_nodes * max_dim * sizeof(float) +
+        2ULL * num_nodes * sizeof(std::vector<float>) +
+        static_cast<std::uint64_t>(max_dim) * sizeof(float);
+    const MemoryMetrics memory = makeMemoryMetrics(
+        num_nodes, num_edges, feature_dim, weight_elements, working_bytes);
     reportResults("sequential", output, g.getLabels(), num_nodes, num_edges, num_classes,
-                  num_layers, elapsedMilliseconds(inference_begin, inference_end));
+                  num_layers, elapsedMilliseconds(inference_begin, inference_end), memory);
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
     return 0;
