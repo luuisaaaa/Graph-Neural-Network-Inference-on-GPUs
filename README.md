@@ -31,3 +31,17 @@ Set `GCN_OUTPUT_FILE` to save every final probability:
 
 The comparator uses numerical tolerances because parallel floating-point
 reductions may sum messages in a different order.
+
+Synthetic graphs
+----------------
+
+The unified generator creates reproducible Erdos-Renyi, Barabasi-Albert
+(scale-free), and Watts-Strogatz (small-world) datasets:
+
+    python src/scripts/generate_synthetic.py erdos-renyi --nodes 10000 --p 0.001 --features 128
+    python src/scripts/generate_synthetic.py barabasi-albert --nodes 10000 --m 4 --features 128
+    python src/scripts/generate_synthetic.py watts-strogatz --nodes 10000 --k 8 --p 0.1 --features 128
+
+Use `--seed` to reproduce topology, features, and labels exactly. Undirected
+models are exported with both directions in CSR so all inference strategies
+observe the same neighborhood relation.
