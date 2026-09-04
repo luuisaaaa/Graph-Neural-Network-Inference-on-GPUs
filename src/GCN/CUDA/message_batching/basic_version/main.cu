@@ -66,16 +66,18 @@ __global__ void softmax_kernel(float* values, int num_nodes, int num_classes) {
 }  // namespace
 
 int main(int argc, char* argv[]) {
-    if (argc < 5) {
+    if (argc < 6) {
         std::cerr << "Uso: " << argv[0]
-                  << " <nome_dataset> <hidden_dim> <num_classes> <num_layers> [message_batch_size]\n";
+                  << " <nome_dataset> <hidden_dim> <num_classes> <num_layers>"
+                     " <cartella_pesi> [message_batch_size]\n";
         return 1;
     }
     const std::string dataset_name = argv[1];
     const int hidden_dim = std::stoi(argv[2]);
     const int num_classes = std::stoi(argv[3]);
     const int num_layers = std::stoi(argv[4]);
-    const int batch_size = argc > 5 ? std::stoi(argv[5]) : 4096;
+    const std::string weights_path = argv[5];
+    const int batch_size = argc > 6 ? std::stoi(argv[6]) : 4096;
     if (hidden_dim < 1 || num_classes < 1 || num_layers < 1 || batch_size < 1) return 1;
 
     int device_count = 0;
@@ -108,13 +110,17 @@ int main(int argc, char* argv[]) {
             host_destinations[message] = vertex;
     }
 
+    std::vector<int> layer_dimensions{feature_dim};
+    for (int layer = 1; layer < num_layers; ++layer) layer_dimensions.push_back(hidden_dim);
+    layer_dimensions.push_back(num_classes);
     std::vector<LayerWeights> weights;
-    if (num_layers == 1) weights.emplace_back(feature_dim, num_classes);
-    else {
-        weights.emplace_back(feature_dim, hidden_dim);
-        for (int l = 1; l < num_layers - 1; ++l) weights.emplace_back(hidden_dim, hidden_dim);
-        weights.emplace_back(hidden_dim, num_classes);
+    std::string weights_error;
+    if (!loadModelWeights(weights_path, dataset_name, layer_dimensions, weights,
+                          weights_error)) {
+        std::cerr << "Errore nel caricamento dei pesi: " << weights_error << '\n';
+        return 1;
     }
+    std::cout << "Pesi precaricati da: " << weights_path << '\n';
     std::vector<size_t> offsets(num_layers);
     size_t total_weights = 0;
     for (int l = 0; l < num_layers; ++l) {

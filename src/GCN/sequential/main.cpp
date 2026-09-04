@@ -10,9 +10,11 @@
 int main(int argc, char* argv[])
 {
     //Lettura dei parametri da terminale
-    if (argc < 5) {
+    if (argc < 6) {
         std::cerr << "Errore: Parametri mancanti." << std::endl;
-        std::cerr << "Uso: " << argv[0] << " <nome_dataset> <hidden_dim> <num_classes> <num_layers>" << std::endl;
+        std::cerr << "Uso: " << argv[0]
+                  << " <nome_dataset> <hidden_dim> <num_classes> <num_layers> <cartella_pesi>"
+                  << std::endl;
         return 1;
     }
 
@@ -20,6 +22,7 @@ int main(int argc, char* argv[])
     int hidden_dim = std::stoi(argv[2]);
     int num_classes = std::stoi(argv[3]);
     int num_layers = std::stoi(argv[4]);
+    std::string weights_path = argv[5];
 
     if (num_layers < 1) {
         std::cerr << "Errore: Il numero di layer deve essere almeno 1." << std::endl;
@@ -47,21 +50,20 @@ int main(int argc, char* argv[])
     num_nodes = g.getNumNodes();
     feature_dim = g.getFeatureDim();
 
-    //Creazione dinamica dei Pesi (W) in base al numero di layer
-    std::vector<LayerWeights> W;
-    
-    if (num_layers == 1) {
-        W.push_back(LayerWeights(feature_dim, num_classes));
-    } 
-    else {
-        W.push_back(LayerWeights(feature_dim, hidden_dim));
-    
-        for (int l = 1; l < num_layers - 1; ++l) {
-            W.push_back(LayerWeights(hidden_dim, hidden_dim));
-        }
+    // Le dimensioni attese derivano dal modello richiesto. Il caricatore
+    // rifiuta file appartenenti a un altro dataset o a un'altra architettura.
+    std::vector<int> layer_dimensions;
+    layer_dimensions.push_back(feature_dim);
+    for (int l = 1; l < num_layers; ++l) layer_dimensions.push_back(hidden_dim);
+    layer_dimensions.push_back(num_classes);
 
-        W.push_back(LayerWeights(hidden_dim, num_classes));
+    std::vector<LayerWeights> W;
+    std::string weights_error;
+    if (!loadModelWeights(weights_path, dataset_name, layer_dimensions, W, weights_error)) {
+        std::cerr << "Errore nel caricamento dei pesi: " << weights_error << std::endl;
+        return 1;
     }
+    std::cout << "Pesi precaricati da: " << weights_path << std::endl;
 
     //Inizializzazione h^(0) = x_v per tutti i nodi
     h_current.resize(num_nodes);
