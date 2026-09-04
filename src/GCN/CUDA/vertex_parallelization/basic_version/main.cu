@@ -80,10 +80,10 @@ __global__ void softmax_kernel(float* values, int num_nodes, int num_classes) {
 }  // namespace
 
 int main(int argc, char* argv[]) {
-    if (argc < 5) {
+    if (argc < 6) {
         std::cerr << "Errore: Parametri mancanti." << std::endl;
         std::cerr << "Uso: " << argv[0]
-                  << " <nome_dataset> <hidden_dim> <num_classes> <num_layers>"
+                  << " <nome_dataset> <hidden_dim> <num_classes> <num_layers> <cartella_pesi>"
                   << std::endl;
         return 1;
     }
@@ -92,6 +92,7 @@ int main(int argc, char* argv[]) {
     const int hidden_dim = std::stoi(argv[2]);
     const int num_classes = std::stoi(argv[3]);
     const int num_layers = std::stoi(argv[4]);
+    const std::string weights_path = argv[5];
     if (hidden_dim < 1 || num_classes < 1 || num_layers < 1) {
         std::cerr << "Errore: hidden_dim, num_classes e num_layers devono essere positivi."
                   << std::endl;
@@ -127,16 +128,17 @@ int main(int argc, char* argv[]) {
     const int num_edges = graph.getNumEdges();
     const int feature_dim = graph.getFeatureDim();
 
+    std::vector<int> layer_dimensions{feature_dim};
+    for (int layer = 1; layer < num_layers; ++layer) layer_dimensions.push_back(hidden_dim);
+    layer_dimensions.push_back(num_classes);
     std::vector<LayerWeights> weights;
-    if (num_layers == 1) {
-        weights.emplace_back(feature_dim, num_classes);
-    } else {
-        weights.emplace_back(feature_dim, hidden_dim);
-        for (int layer = 1; layer < num_layers - 1; ++layer) {
-            weights.emplace_back(hidden_dim, hidden_dim);
-        }
-        weights.emplace_back(hidden_dim, num_classes);
+    std::string weights_error;
+    if (!loadModelWeights(weights_path, dataset_name, layer_dimensions, weights,
+                          weights_error)) {
+        std::cerr << "Errore nel caricamento dei pesi: " << weights_error << std::endl;
+        return 1;
     }
+    std::cout << "Pesi precaricati da: " << weights_path << std::endl;
 
     std::vector<size_t> weight_offsets(num_layers);
     size_t total_weights = 0;
