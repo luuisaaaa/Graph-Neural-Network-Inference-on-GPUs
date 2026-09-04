@@ -128,6 +128,20 @@ int main(int argc, char* argv[]) {
     const int num_edges = graph.getNumEdges();
     const int feature_dim = graph.getFeatureDim();
 
+    const auto& outgoing_rows = graph.getRowPointers();
+    const auto& outgoing_destinations = graph.getColumnIndices();
+    std::vector<int> incoming_rows(num_nodes + 1, 0);
+    for (int destination : outgoing_destinations) ++incoming_rows[destination + 1];
+    for (int vertex = 0; vertex < num_nodes; ++vertex)
+        incoming_rows[vertex + 1] += incoming_rows[vertex];
+    std::vector<int> incoming_sources(num_edges);
+    std::vector<int> cursor = incoming_rows;
+    for (int source = 0; source < num_nodes; ++source)
+        for (int edge = outgoing_rows[source]; edge < outgoing_rows[source + 1]; ++edge) {
+            const int destination = outgoing_destinations[edge];
+            incoming_sources[cursor[destination]++] = source;
+        }
+
     std::vector<int> layer_dimensions{feature_dim};
     for (int layer = 1; layer < num_layers; ++layer) layer_dimensions.push_back(hidden_dim);
     layer_dimensions.push_back(num_classes);
@@ -167,9 +181,9 @@ int main(int argc, char* argv[]) {
                               static_cast<size_t>(num_nodes) * max_dim * sizeof(float)));
     checkCudaError(cudaMalloc(&device_weights, total_weights * sizeof(float)));
 
-    checkCudaError(cudaMemcpy(device_row_pointers, graph.getRowPointers().data(),
+    checkCudaError(cudaMemcpy(device_row_pointers, incoming_rows.data(),
                               (num_nodes + 1) * sizeof(int), cudaMemcpyHostToDevice));
-    checkCudaError(cudaMemcpy(device_column_indices, graph.getColumnIndices().data(),
+    checkCudaError(cudaMemcpy(device_column_indices, incoming_sources.data(),
                               num_edges * sizeof(int), cudaMemcpyHostToDevice));
     checkCudaError(cudaMemcpy(device_current, graph.getNodeFeatures().data(),
                               static_cast<size_t>(num_nodes) * feature_dim * sizeof(float),

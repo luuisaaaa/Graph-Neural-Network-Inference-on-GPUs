@@ -50,8 +50,23 @@ int main(int argc, char* argv[]) {
 
     const int num_nodes = graph.getNumNodes();
     const int feature_dim = graph.getFeatureDim();
-    const std::vector<int>& row_pointers = graph.getRowPointers();
-    const std::vector<int>& column_indices = graph.getColumnIndices();
+    const std::vector<int>& outgoing_rows = graph.getRowPointers();
+    const std::vector<int>& outgoing_destinations = graph.getColumnIndices();
+
+    // Trasposizione CSR -> struttura entrante (CSC logica), fuori dal timer.
+    // Ogni thread vertex potra' cosi' possedere una destinazione senza atomiche.
+    std::vector<int> incoming_rows(num_nodes + 1, 0);
+    for (int destination : outgoing_destinations) ++incoming_rows[destination + 1];
+    for (int vertex = 0; vertex < num_nodes; ++vertex)
+        incoming_rows[vertex + 1] += incoming_rows[vertex];
+    std::vector<int> incoming_sources(outgoing_destinations.size());
+    std::vector<int> cursor = incoming_rows;
+    for (int source = 0; source < num_nodes; ++source) {
+        for (int edge = outgoing_rows[source]; edge < outgoing_rows[source + 1]; ++edge) {
+            const int destination = outgoing_destinations[edge];
+            incoming_sources[cursor[destination]++] = source;
+        }
+    }
 
     std::vector<int> layer_dimensions{feature_dim};
     for (int layer = 1; layer < num_layers; ++layer) layer_dimensions.push_back(hidden_dim);
@@ -79,13 +94,13 @@ int main(int argc, char* argv[]) {
 #pragma omp parallel for schedule(dynamic, 64)
         for (int v = 0; v < num_nodes; ++v) {
             std::vector<float> message(current_dim, 0.0f);
-            const int edge_begin = row_pointers[v];
-            const int edge_end = row_pointers[v + 1];
+            const int edge_begin = incoming_rows[v];
+            const int edge_end = incoming_rows[v + 1];
             const int degree = edge_end - edge_begin;
 
             if (degree > 0) {
                 for (int edge = edge_begin; edge < edge_end; ++edge) {
-                    const int neighbor = column_indices[edge];
+                    const int neighbor = incoming_sources[edge];
                     const size_t neighbor_offset = static_cast<size_t>(neighbor) * current_dim;
                     for (int feature = 0; feature < current_dim; ++feature) {
                         message[feature] += h_current[neighbor_offset + feature];
