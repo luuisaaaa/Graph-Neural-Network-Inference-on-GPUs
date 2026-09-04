@@ -181,8 +181,17 @@ int main(int argc, char* argv[]) {
     checkCuda(cudaEventElapsedTime(&inference_ms, inference_begin, inference_end));
     std::vector<float> output(static_cast<size_t>(num_nodes) * num_classes);
     checkCuda(cudaMemcpy(output.data(), d_current, output.size() * sizeof(float), cudaMemcpyDeviceToHost));
+    const std::uint64_t host_working_bytes =
+        (static_cast<std::uint64_t>(num_edges) + num_nodes) * sizeof(int) +
+        total_weights * sizeof(float) + output.size() * sizeof(float);
+    const std::uint64_t device_memory_bytes =
+        (2ULL * num_edges + num_nodes) * sizeof(int) +
+        3ULL * num_nodes * max_dim * sizeof(float) + total_weights * sizeof(float);
+    const MemoryMetrics memory = makeMemoryMetrics(
+        num_nodes, num_edges, feature_dim, total_weights,
+        host_working_bytes, device_memory_bytes);
     reportResults("cuda-message-batching-basic", output, graph.getLabels(), num_nodes, num_edges,
-                  num_classes, num_layers, inference_ms);
+                  num_classes, num_layers, inference_ms, memory);
     checkCuda(cudaEventDestroy(inference_begin));
     checkCuda(cudaEventDestroy(inference_end));
     checkCuda(cudaFree(d_sources)); checkCuda(cudaFree(d_destinations)); checkCuda(cudaFree(d_degree));
