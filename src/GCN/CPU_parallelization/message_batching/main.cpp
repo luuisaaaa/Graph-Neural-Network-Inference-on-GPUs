@@ -41,15 +41,15 @@ int main(int argc, char* argv[]) {
     const int num_edges = graph.getNumEdges();
     const int feature_dim = graph.getFeatureDim();
     const std::vector<int>& rows = graph.getRowPointers();
-    const std::vector<int>& message_sources = graph.getColumnIndices();
+    const std::vector<int>& message_destinations = graph.getColumnIndices();
 
-    // L'elemento CSR nella riga v descrive un messaggio neighbor -> v.
-    std::vector<int> message_destinations(num_edges);
-    std::vector<int> degree(num_nodes);
-    for (int vertex = 0; vertex < num_nodes; ++vertex) {
-        degree[vertex] = rows[vertex + 1] - rows[vertex];
-        for (int message = rows[vertex]; message < rows[vertex + 1]; ++message) {
-            message_destinations[message] = vertex;
+    // Ogni riga CSR appartiene alla sorgente; ogni colonna e' la destinazione.
+    std::vector<int> message_sources(num_edges);
+    std::vector<int> in_degree(num_nodes, 0);
+    for (int source = 0; source < num_nodes; ++source) {
+        for (int message = rows[source]; message < rows[source + 1]; ++message) {
+            message_sources[message] = source;
+            ++in_degree[message_destinations[message]];
         }
     }
 
@@ -94,8 +94,8 @@ int main(int argc, char* argv[]) {
 #pragma omp parallel for schedule(dynamic, 64)
         for (int vertex = 0; vertex < num_nodes; ++vertex) {
             const size_t msg = static_cast<size_t>(vertex) * current_dim;
-            if (degree[vertex] > 0) {
-                const float inverse_degree = 1.0f / static_cast<float>(degree[vertex]);
+            if (in_degree[vertex] > 0) {
+                const float inverse_degree = 1.0f / static_cast<float>(in_degree[vertex]);
                 for (int feature = 0; feature < current_dim; ++feature)
                     aggregated[msg + feature] *= inverse_degree;
             } else {

@@ -102,12 +102,13 @@ int main(int argc, char* argv[]) {
     const int num_edges = graph.getNumEdges();
     const int feature_dim = graph.getFeatureDim();
     const auto& rows = graph.getRowPointers();
-    const auto& host_sources = graph.getColumnIndices();
-    std::vector<int> host_destinations(num_edges), host_degree(num_nodes);
-    for (int vertex = 0; vertex < num_nodes; ++vertex) {
-        host_degree[vertex] = rows[vertex + 1] - rows[vertex];
-        for (int message = rows[vertex]; message < rows[vertex + 1]; ++message)
-            host_destinations[message] = vertex;
+    const auto& host_destinations = graph.getColumnIndices();
+    std::vector<int> host_sources(num_edges), host_degree(num_nodes, 0);
+    for (int source = 0; source < num_nodes; ++source) {
+        for (int message = rows[source]; message < rows[source + 1]; ++message) {
+            host_sources[message] = source;
+            ++host_degree[host_destinations[message]];
+        }
     }
 
     std::vector<int> layer_dimensions{feature_dim};
