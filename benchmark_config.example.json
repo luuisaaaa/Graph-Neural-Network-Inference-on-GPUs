@@ -1,0 +1,20 @@
+{
+  "benchmarks": [
+    {
+      "name": "sequential-cora",
+      "dataset": "Cora",
+      "hidden_dim": 16,
+      "num_classes": 7,
+      "num_layers": 2,
+      "cwd": "src/GCN/sequential",
+      "command": [
+        "./sequential",
+        "Cora",
+        "16",
+        "7",
+        "2",
+        "../../../weights/Cora/h16_l2_seed42"
+      ]
+    }
+  ]
+}

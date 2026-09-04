@@ -7,4 +7,5 @@ datasets/
 .DS_Store
 src/GCN/sequential/sequential
 src/GCN/CPU_parallelization/vertex_parallelization/vertex_cpu
+results/
 __pycache__

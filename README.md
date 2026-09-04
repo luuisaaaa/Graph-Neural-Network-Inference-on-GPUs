@@ -37,6 +37,20 @@ temporary working buffers, and allocations on the CUDA device. The total is an
 algorithmic estimate based on owned arrays; allocator overhead and process/runtime
 memory are intentionally excluded.
 
+Repeated benchmarks
+-------------------
+
+`benchmark.h` measures one inference run. The external runner performs warm-up
+runs, repeats every configured command, verifies stable checksums, and writes raw
+and statistical CSV files:
+
+    python src/scripts/run_benchmarks.py --config benchmark_config.example.json
+
+The default protocol is 3 warm-up runs followed by 10 measured runs. Edit or
+copy the JSON file to add CPU, CUDA, dataset, feature-size, depth, and OpenMP
+thread-count configurations. Results are written under `results/` and include
+the Git commit, host, and platform so measurements remain traceable.
+
 Synthetic graphs
 ----------------
 
