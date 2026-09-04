@@ -1,4 +1,10 @@
 .venv
 .vscode
 dataset/raw/
+dataset/converted/PubMed/
+dataset/converted/ogbn-arxiv/
+datasets/
+.DS_Store
+src/GCN/sequential/sequential
+src/GCN/CPU_parallelization/vertex_parallelization/vertex_cpu
 __pycache__
