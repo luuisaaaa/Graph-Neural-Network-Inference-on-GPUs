@@ -222,8 +222,18 @@ int main(int argc, char* argv[]) {
     std::vector<float> output(static_cast<size_t>(num_nodes) * num_classes);
     checkCudaError(cudaMemcpy(output.data(), device_current, output.size() * sizeof(float),
                               cudaMemcpyDeviceToHost));
+    const std::uint64_t host_working_bytes =
+        (2ULL * (num_nodes + 1) + num_edges) * sizeof(int) +
+        total_weights * sizeof(float) +
+        static_cast<std::uint64_t>(num_layers) * sizeof(size_t) +
+        static_cast<std::uint64_t>(num_nodes) * num_classes * sizeof(float);
+    const std::uint64_t device_bytes =
+        (static_cast<std::uint64_t>(num_nodes) + 1 + num_edges) * sizeof(int) +
+        2ULL * num_nodes * max_dim * sizeof(float) + total_weights * sizeof(float);
+    const MemoryMetrics memory = makeMemoryMetrics(
+        num_nodes, num_edges, feature_dim, total_weights, host_working_bytes, device_bytes);
     reportResults("cuda-vertex-basic", output, graph.getLabels(), num_nodes, num_edges,
-                  num_classes, num_layers, inference_ms);
+                  num_classes, num_layers, inference_ms, memory);
     checkCudaError(cudaEventDestroy(inference_begin));
     checkCudaError(cudaEventDestroy(inference_end));
 

@@ -170,9 +170,6 @@ VertexData Graph::getVertex(int v) const {
     vertex_data.label = labels[v];
     vertex_data.neighbors = getNeighbors(v);
 
-    int start_idx = row_pointers[v];
-    int end_idx = row_pointers[v + 1];
-
     return vertex_data;
 }
 
