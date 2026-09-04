@@ -78,32 +78,31 @@ int main(int argc, char* argv[])
         // Struttura per h^(l+1)
         std::vector<std::vector<float>> h_next(num_nodes, std::vector<float>(next_dim, 0.0f));
 
-        // Vettore di supporto per l'aggregazione di un singolo nodo
-        std::vector<float> m_v(current_dim, 0.0f);
+        std::vector<std::vector<float>> aggregated(num_nodes, std::vector<float>(current_dim, 0.0f));
+        std::vector<int> in_degree(num_nodes, 0);
+
+        // Somma delle feature di tutti i vicini
+        for (int src = 0; src < num_nodes; src++) {
+            const std::vector<int> &destinations = g.getVertex(src).neighbors;
+            for (int dest : destinations) {
+                for (int f = 0; f < current_dim; f++) {
+                    aggregated[dest][f] += h_current[src][f];
+                }
+                in_degree[dest]++;
+            }
+        }
 
         // Esecuzione iterativa su ogni nodo v del grafo
         for (int v = 0; v < num_nodes; v++) {
-            VertexData v_data = g.getVertex(v);
-            const std::vector<int> &neighbors = v_data.neighbors;
-
-            // Inizializza m_v a zero per il nodo corrente
-            std::fill(m_v.begin(), m_v.end(), 0.0f);
+            
+            // Vettore di supporto per l'aggregazione di un singolo nodo
+            std::vector<float> m_v(current_dim, 0.0f);
 
             // Aggregazione (media)
-            if (!neighbors.empty()) {
-                int degree = neighbors.size();
-
-                // Somma delle feature di tutti i vicini
-                for (int k = 0; k < degree; k++) {
-                    int u = neighbors[k];
-                    for (int f = 0; f < current_dim; f++) {
-                        m_v[f] += h_current[u][f];
-                    }
-                }
-
+            if (in_degree[v] > 0) {
                 // Calcolo della media
                 for (int f = 0; f < current_dim; f++) {
-                    m_v[f] /= static_cast<float>(degree);
+                    m_v[f] = aggregated[v][f] / static_cast<float>(in_degree[v]);
                 }
             } 
             else {
