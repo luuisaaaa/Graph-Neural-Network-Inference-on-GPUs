@@ -1,0 +1,561 @@
+--------- Test: per grafi differenti ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 128
+Classi: 7
+Livelli: 2
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:44.22 ms
+Nodi per secondo:122487 nodes/s
+Archi per secondo:477464 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:55.73 ms
+Nodi per secondo:97177 nodes/s
+Archi per secondo:378804 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:34.84 ms
+Nodi per secondo:155467 nodes/s
+Archi per secondo:606021 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:33.87 ms
+Nodi per secondo:159902 nodes/s
+Archi per secondo:623312 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:34.07 ms
+Nodi per secondo:158964 nodes/s
+Archi per secondo:619653 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:24.44%
+DRAM Throughput:9.79%
+L2 Cache Hit Rate:89.49%
+SM Throughput:5.78%
+IPC (per SM):0.22
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 2
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:343.11 ms
+Nodi per secondo:987101 nodes/s
+Archi per secondo:6798035 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:348.40 ms
+Nodi per secondo:972128 nodes/s
+Archi per secondo:6694921 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:365.86 ms
+Nodi per secondo:925723 nodes/s
+Archi per secondo:6375334 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:351.48 ms
+Nodi per secondo:963596 nodes/s
+Archi per secondo:6636156 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:339.64 ms
+Nodi per secondo:997196 nodes/s
+Archi per secondo:6867556 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:94.28%
+DRAM Throughput:32.2%
+L2 Cache Hit Rate:78.69%
+SM Throughput:5.91%
+IPC (per SM):0.06
+
+
+---------- Parametri ----------
+Dataset: ogbn-products (Nodi: 2449029, Archi: 123718152, Dim. Feature: 100)
+Hidden dimension: 128
+Classi: 47
+Livelli: 2
+
+---------- Esecuzioni ----------
+DA FARE
+
+---------- Memoria ----------
+DA FARE
+
+
+---------- Parametri ----------
+Dataset: Erdos_100k_directed (Nodi: 100000, Archi: 4999973, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 2
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1457.93 ms
+Nodi per secondo:137181 nodes/s
+Archi per secondo:6859000 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1475.52 ms
+Nodi per secondo:135545 nodes/s
+Archi per secondo:6777218 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1484.67 ms
+Nodi per secondo:134710 nodes/s
+Archi per secondo:6735480 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1459.56 ms
+Nodi per secondo:137028 nodes/s
+Archi per secondo:6851355 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1456.36 ms
+Nodi per secondo:137329 nodes/s
+Archi per secondo:6866414 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:90.76%
+DRAM Throughput:30.17%
+L2 Cache Hit Rate:71.91%
+SM Throughput:4.09%
+IPC (per SM):0.08
+
+
+
+--------- Test: per livelli differenti (4 e 8) ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 128
+Classi: 7
+Livelli: 4
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:55.51 ms
+Nodi per secondo:195134 nodes/s
+Archi per secondo:760648 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:64.78 ms
+Nodi per secondo:167223 nodes/s
+Archi per secondo:651849 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:41.72 ms
+Nodi per secondo:259607 nodes/s
+Archi per secondo:1011970 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:46.37 ms
+Nodi per secondo:233584 nodes/s
+Archi per secondo:910527 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:55.53 ms
+Nodi per secondo:195049 nodes/s
+Archi per secondo:760318 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:24.52%
+DRAM Throughput:6.98%
+L2 Cache Hit Rate:91.89%
+SM Throughput:5.78%
+IPC (per SM):0.18
+
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 128
+Classi: 7
+Livelli: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:96.27 ms
+Nodi per secondo:225031 nodes/s
+Archi per secondo:877187 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:65.01 ms
+Nodi per secondo:333227 nodes/s
+Archi per secondo:1298945 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:97.50 ms
+Nodi per secondo:222194 nodes/s
+Archi per secondo:866130 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:63.27 ms
+Nodi per secondo:342387 nodes/s
+Archi per secondo:1334653 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:82.40 ms
+Nodi per secondo:262907 nodes/s
+Archi per secondo:1024832 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:24.71%
+DRAM Throughput:5.32%
+L2 Cache Hit Rate:95.38%
+SM Throughput:5.64%
+IPC (per SM):0.13
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 4
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:783.90 ms
+Nodi per secondo:864109 nodes/s
+Archi per secondo:5951002 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:760.59 ms
+Nodi per secondo:890591 nodes/s
+Archi per secondo:6133384 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:792.63 ms
+Nodi per secondo:854587 nodes/s
+Archi per secondo:5885425 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:791.95 ms
+Nodi per secondo:855318 nodes/s
+Archi per secondo:5890465 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:807.46 ms
+Nodi per secondo:838890 nodes/s
+Archi per secondo:5777322 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:94.59%
+DRAM Throughput:33.31%
+L2 Cache Hit Rate:77.53%
+SM Throughput:5.93%
+IPC (per SM):0.06
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1606.83 ms
+Nodi per secondo:843116 nodes/s
+Archi per secondo:5806428 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1616.25 ms
+Nodi per secondo:838203 nodes/s
+Archi per secondo:5772596 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1617.88 ms
+Nodi per secondo:837360 nodes/s
+Archi per secondo:5766788 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1612.03 ms
+Nodi per secondo:840395 nodes/s
+Archi per secondo:5787691 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:1615.01 ms
+Nodi per secondo:838844 nodes/s
+Archi per secondo:5777010 edges/s
+
+---------- Memoria ----------
+Achieved Occupancy:94.65%
+DRAM Throughput:33.41%
+L2 Cache Hit Rate:76.83%
+SM Throughput:5.87%
+IPC (per SM):0.05
+
+
+---------- Parametri ----------
+Dataset: ogbn-products (Nodi: 2449029, Archi: 123718152, Dim. Feature: 100)
+Hidden dimension: 128
+Classi: 47
+Livelli: 4
+
+---------- Esecuzioni ----------
+DA FARE
+
+---------- Memoria ----------
+DA FARE
+
+
+---------- Parametri ----------
+Dataset: ogbn-products (Nodi: 2449029, Archi: 123718152, Dim. Feature: 100)
+Hidden dimension: 128
+Classi: 47
+Livelli: 8
+
+---------- Esecuzioni ----------
+DA FARE
+
+---------- Memoria ----------
+DA FARE
+
+
+---------- Parametri ----------
+Dataset: Erdos_100k_directed (Nodi: 100000, Archi: 4999973, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 4
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:3024.89 ms
+Nodi per secondo:132236 nodes/s
+Archi per secondo:6611774 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:3003.78 ms
+Nodi per secondo:133166 nodes/s
+Archi per secondo:6658245 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:3034.90 ms
+Nodi per secondo:131800 nodes/s
+Archi per secondo:6589960 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:2978.82 ms
+Nodi per secondo:134281 nodes/s
+Archi per secondo:6714037 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:3002.90 ms
+Nodi per secondo:133205 nodes/s
+Archi per secondo:6660204 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:91.72%
+DRAM Throughput:32.51%
+L2 Cache Hit Rate:68.59%
+SM Throughput:4.44%
+IPC (per SM):0.08
+
+
+---------- Parametri ----------
+Dataset: Erdos_100k_directed (Nodi: 100000, Archi: 4999973, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:6125.51 ms
+Nodi per secondo:130601 nodes/s
+Archi per secondo:6530033 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:6115.36 ms
+Nodi per secondo:130818 nodes/s
+Archi per secondo:6540866 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:6162.76 ms
+Nodi per secondo:129812 nodes/s
+Archi per secondo:6490563 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:6173.92 ms
+Nodi per secondo:129577 nodes/s
+Archi per secondo:6478833 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:6164.94 ms
+Nodi per secondo:129766 nodes/s
+Archi per secondo:6488273 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:91.96%
+DRAM Throughput:33.66%
+L2 Cache Hit Rate:66.82%
+SM Throughput:4.15%
+IPC (per SM):0.06
+
+
+
+--------- Test: per dimensioni differenti (256) ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 256
+Classi: 7
+Livelli: 2
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:86.32 ms
+Nodi per secondo:62743 nodes/s
+Archi per secondo:244577 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:76.86 ms
+Nodi per secondo:70468 nodes/s
+Archi per secondo:274688 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:95.83 ms
+Nodi per secondo:56519 nodes/s
+Archi per secondo:220314 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:59.58 ms
+Nodi per secondo:90900 nodes/s
+Archi per secondo:354336 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:91.07 ms
+Nodi per secondo:59472 nodes/s
+Archi per secondo:231826 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:24.39%
+DRAM Throughput:10.11%
+L2 Cache Hit Rate:89.07%
+SM Throughput:6.13%
+IPC (per SM):0.27
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 2
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:766.62 ms
+Nodi per secondo:441789 nodes/s
+Archi per secondo:3042544 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:714.33 ms
+Nodi per secondo:474128 nodes/s
+Archi per secondo:3265259 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:724.20 ms
+Nodi per secondo:467672 nodes/s
+Archi per secondo:3220794 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:759.21 ms
+Nodi per secondo:446100 nodes/s
+Archi per secondo:3072235 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:765.29 ms
+Nodi per secondo:442558 nodes/s
+Archi per secondo:3047841 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:94.41%
+DRAM Throughput:32.93%
+L2 Cache Hit Rate:78.65%
+SM Throughput:5.57%
+IPC (per SM):0.05
+
+
+---------- Parametri ----------
+Dataset: ogbn-products (Nodi: 2449029, Archi: 123718152, Dim. Feature: 100)
+Hidden dimension: 256
+Classi: 47
+Livelli: 2
+
+---------- Esecuzioni ----------
+DA FARE
+
+---------- Memoria ----------
+DA FARE
+
+
+---------- Parametri ----------
+Dataset: Erdos_100k_directed (Nodi: 100000, Archi: 4999973, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 2
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:2354.81 ms
+Nodi per secondo:84932 nodes/s
+Archi per secondo:4246601 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:2359.10 ms
+Nodi per secondo:84778 nodes/s
+Archi per secondo:4238880 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:2339.72 ms
+Nodi per secondo:85480 nodes/s
+Archi per secondo:4273987 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:2339.45 ms
+Nodi per secondo:85490 nodes/s
+Archi per secondo:4274494 edges/s
+========================================
+RESULT implementation:cuda-edge-parallel-basic
+Tempo:2339.83 ms
+Nodi per secondo:85476 nodes/s
+Archi per secondo:4273790 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cuda-gpu-profiling
+Achieved Occupancy:91.69%
+DRAM Throughput:30.27%
+L2 Cache Hit Rate:69.06%
+SM Throughput:3.9%
+IPC (per SM):0.08
