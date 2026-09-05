@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <string>
 #include <fstream>
-#include <iostream>
 #include <cuda_runtime.h>
 #include "../../../utilities/benchmark.h"
 #include "../../../utilities/graph.h"
@@ -126,9 +125,9 @@ __global__ void softmax_kernel(float* h_current, int num_nodes, int num_classes)
 
 
 int main(int argc, char* argv[]){
-    if (argc < 5) {
+    if (argc < 6) {
         std::cerr << "Errore: Parametri mancanti." << std::endl;
-        std::cerr << "Uso: " << argv[0] << " <nome_dataset> <hidden_dim> <num_classes> <num_layers>" << std::endl;
+        std::cerr << "Uso: " << argv[0] << " <nome_dataset> <hidden_dim> <num_classes> <num_layers> <cartella_pesi>" << std::endl;
         return 1;
     }
 
@@ -136,6 +135,7 @@ int main(int argc, char* argv[]){
     int hidden_dim = std::stoi(argv[2]);
     int num_classes = std::stoi(argv[3]);
     int num_layers = std::stoi(argv[4]);
+    std::string weights_path = argv[5];
 
     if (num_layers < 1) {
         std::cerr << "Errore: Il numero di layer deve essere almeno 1." << std::endl;
@@ -173,17 +173,22 @@ int main(int argc, char* argv[]){
     num_nodes = g.getNumNodes();
     feature_dim = g.getFeatureDim();
 
-    // Creazione dinamica dei pesi (W)
-    std::vector<LayerWeights> W;
-    if (num_layers == 1) {
-        W.push_back(LayerWeights(feature_dim, num_classes));
-    } else {
-        W.push_back(LayerWeights(feature_dim, hidden_dim));
-        for (int l = 1; l < num_layers - 1; ++l) {
-            W.push_back(LayerWeights(hidden_dim, hidden_dim));
-        }
-        W.push_back(LayerWeights(hidden_dim, num_classes));
+    // Creazione delle dimensioni attese per i layer
+    std::vector<int> expected_dimensions;
+    expected_dimensions.push_back(feature_dim);
+    for (int l = 1; l < num_layers; ++l) {
+        expected_dimensions.push_back(hidden_dim);
     }
+    expected_dimensions.push_back(num_classes);
+
+    // Caricamento dei Pesi (W) da file
+    std::vector<LayerWeights> W;
+    std::string error_message;
+    if (!loadModelWeights(weights_path, dataset_name, expected_dimensions, W, error_message)) {
+        std::cerr << "Errore nel caricamento dei pesi: " << error_message << std::endl;
+        return 1;
+    }
+    std::cout << "Pesi precaricati da: " << weights_path << std::endl;
 
     // Calcolo della dimensione totale e salvataggio degli offset di partenza per W
     int total_weights_size = 0;
