@@ -123,3 +123,22 @@ g++ -O3 -std=c++17 -pthread main.cpp ../../utilities/graph.cpp ../../utilities/i
 The final optional arguments are respectively the dense-memory limit in MB for
 the sequential program, and the thread count followed by the memory limit for
 the parallel program. Compiled executables should not be committed.
+
+CUDA FP16 feature compression
+-----------------------------
+
+`src/GCN/CUDA/vertex_parallelization/compressed_fp16` stores node activations
+and transposed weights as CUDA `__half`, while accumulation and softmax use
+FP32. Compare it with the vertex improved FP32 implementation using the same
+dataset, dimensions, depth, and pre-loaded weights:
+
+```bash
+nvcc -O3 -std=c++17 main.cu ../../../utilities/graph.cpp ../../../utilities/inference.cpp -o program
+./program Cora 16 7 2 ../../../../../weights/Cora/h16_l2_seed42
+```
+
+The benchmark reports the original FP32 host features and weights because the
+current loader keeps them resident, the additional compressed host buffers as
+working memory, and the actual FP16 CUDA allocations as device memory. FP16
+results must be compared numerically with FP32; small probability differences
+are expected and any changed node predictions must be reported.

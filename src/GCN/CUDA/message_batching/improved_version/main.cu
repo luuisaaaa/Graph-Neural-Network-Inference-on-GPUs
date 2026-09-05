@@ -4,9 +4,9 @@
 #include <string>
 #include <vector>
 #include <cuda_runtime.h>
-#include "../../../../utilities/benchmark.h"
-#include "../../../../utilities/graph.h"
-#include "../../../../utilities/inference.h"
+#include "../../../utilities/benchmark.h"
+#include "../../../utilities/graph.h"
+#include "../../../utilities/inference.h"
 
 namespace {
 constexpr int kWarpSize = 32;

@@ -8,9 +8,9 @@
 #include <cuda_fp16.h>
 #include <cuda_runtime.h>
 
-#include "../../../../utilities/benchmark.h"
-#include "../../../../utilities/graph.h"
-#include "../../../../utilities/inference.h"
+#include "../../../utilities/benchmark.h"
+#include "../../../utilities/graph.h"
+#include "../../../utilities/inference.h"
 
 namespace {
 
@@ -293,23 +293,23 @@ int main(int argc, char* argv[]) {
     checkCudaError(cudaMemcpy(output.data(), device_probabilities,
                               output.size() * sizeof(float), cudaMemcpyDeviceToHost));
 
-    MemoryMetrics memory;
-    memory.topology_bytes =
-        (static_cast<std::uint64_t>(num_nodes) + 1 + num_edges) * sizeof(int);
-    memory.feature_bytes = static_cast<std::uint64_t>(num_nodes) * feature_dim * sizeof(__half);
-    memory.label_bytes = static_cast<std::uint64_t>(num_nodes) * sizeof(int);
-    memory.weight_bytes = static_cast<std::uint64_t>(total_weights) * sizeof(__half);
-    memory.working_bytes =
+    // Il loader conserva input e pesi FP32 sull'host; le copie FP16 usate per il
+    // trasferimento sono buffer di lavoro aggiuntivi. Il risparmio effettivo della
+    // compressione e' quindi visibile soprattutto in device_memory_bytes.
+    const std::uint64_t host_working_bytes =
         (2ULL * (num_nodes + 1) + num_edges) * sizeof(int) +
         static_cast<std::uint64_t>(host_features.size()) * sizeof(__half) +
         static_cast<std::uint64_t>(host_weights.size()) * sizeof(__half) +
         static_cast<std::uint64_t>(weight_offsets.size()) * sizeof(size_t) +
         static_cast<std::uint64_t>(output.size()) * sizeof(float);
-    memory.device_bytes =
+    const std::uint64_t device_memory_bytes =
         (static_cast<std::uint64_t>(num_nodes) + 1 + num_edges) * sizeof(int) +
         2ULL * num_nodes * max_dim * sizeof(__half) +
         static_cast<std::uint64_t>(total_weights) * sizeof(__half) +
         static_cast<std::uint64_t>(num_nodes) * num_classes * sizeof(float);
+    const MemoryMetrics memory = makeMemoryMetrics(
+        num_nodes, num_edges, feature_dim, total_weights,
+        host_working_bytes, device_memory_bytes);
 
     reportResults("cuda-vertex-compressed-fp16", output, graph.getLabels(), num_nodes,
                   num_edges, num_classes, num_layers, inference_ms, memory);

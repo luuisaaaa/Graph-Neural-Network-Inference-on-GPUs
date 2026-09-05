@@ -6,9 +6,9 @@
 
 #include <cuda_runtime.h>
 
-#include "../../../../utilities/benchmark.h"
-#include "../../../../utilities/graph.h"
-#include "../../../../utilities/inference.h"
+#include "../../../utilities/benchmark.h"
+#include "../../../utilities/graph.h"
+#include "../../../utilities/inference.h"
 
 namespace {
 

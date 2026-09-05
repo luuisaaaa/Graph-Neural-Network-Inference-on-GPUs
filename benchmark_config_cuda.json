@@ -19,6 +19,15 @@
       "command": ["./program", "Cora", "16", "7", "2", "../../../../../weights/Cora/h16_l2_seed42"]
     },
     {
+      "name": "cuda-vertex-compressed-fp16-cora-h16-l2",
+      "dataset": "Cora",
+      "hidden_dim": 16,
+      "num_classes": 7,
+      "num_layers": 2,
+      "cwd": "src/GCN/CUDA/vertex_parallelization/compressed_fp16",
+      "command": ["./program", "Cora", "16", "7", "2", "../../../../../weights/Cora/h16_l2_seed42"]
+    },
+    {
       "name": "cuda-edge-basic-cora-h16-l2",
       "dataset": "Cora",
       "hidden_dim": 16,
