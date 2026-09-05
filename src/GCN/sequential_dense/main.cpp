@@ -29,14 +29,15 @@ bool checkedMultiply(size_t lhs, size_t rhs, size_t& result) {
 
 void printUsage(const char* executable) {
     std::cerr << "Uso: " << executable
-              << " <nome_dataset> <hidden_dim> <num_classes> <num_layers> [max_dense_memory_mb]"
+              << " <nome_dataset> <hidden_dim> <num_classes> <num_layers>"
+              << " <cartella_pesi> [max_dense_memory_mb]"
               << std::endl;
 }
 
 }  // namespace
 
 int main(int argc, char* argv[]) {
-    if (argc < 5) {
+    if (argc < 6) {
         std::cerr << "Errore: Parametri mancanti." << std::endl;
         printUsage(argv[0]);
         return 1;
@@ -46,8 +47,9 @@ int main(int argc, char* argv[]) {
     const int hidden_dim = std::stoi(argv[2]);
     const int num_classes = std::stoi(argv[3]);
     const int num_layers = std::stoi(argv[4]);
-    const size_t max_dense_memory_mb = argc > 5
-        ? static_cast<size_t>(std::stoull(argv[5]))
+    const std::string weights_path = argv[5];
+    const size_t max_dense_memory_mb = argc > 6
+        ? static_cast<size_t>(std::stoull(argv[6]))
         : 1024ULL;
 
     if (hidden_dim < 1 || num_classes < 1 || num_layers < 1) {
@@ -116,16 +118,20 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    std::vector<LayerWeights> weights;
-    if (num_layers == 1) {
-        weights.emplace_back(feature_dim, num_classes);
-    } else {
-        weights.emplace_back(feature_dim, hidden_dim);
-        for (int layer = 1; layer < num_layers - 1; ++layer) {
-            weights.emplace_back(hidden_dim, hidden_dim);
-        }
-        weights.emplace_back(hidden_dim, num_classes);
+    std::vector<int> layer_dimensions{feature_dim};
+    for (int layer = 1; layer < num_layers; ++layer) {
+        layer_dimensions.push_back(hidden_dim);
     }
+    layer_dimensions.push_back(num_classes);
+
+    std::vector<LayerWeights> weights;
+    std::string weights_error;
+    if (!loadModelWeights(weights_path, dataset_name, layer_dimensions, weights,
+                          weights_error)) {
+        std::cerr << "Errore nel caricamento dei pesi: " << weights_error << std::endl;
+        return 1;
+    }
+    std::cout << "Pesi precaricati da: " << weights_path << std::endl;
 
     std::vector<std::vector<float>> h_current(num_nodes);
     for (int vertex = 0; vertex < num_nodes; ++vertex) {
