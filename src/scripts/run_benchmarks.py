@@ -152,11 +152,17 @@ def main():
     for case in cases:
         warmups, runs, thread_counts = resolve_case(case, args.warmups, args.runs)
         cwd = REPOSITORY_ROOT / case.get("cwd", ".")
-        command = [str(part) for part in case["command"]]
+        command_template = [str(part) for part in case["command"]]
         if not cwd.is_dir():
             raise RuntimeError(f"case {case['name']!r}: cwd does not exist: {cwd}")
 
         for thread_count in thread_counts:
+            command = [part.replace("{threads}", str(thread_count))
+                       for part in command_template]
+            if thread_count is None and any("{threads}" in part
+                                            for part in command_template):
+                raise ValueError(
+                    f"case {case['name']!r}: command uses {{threads}} but no thread count is set")
             environment = os.environ.copy()
             environment.update({str(k): str(v) for k, v in case.get("env", {}).items()})
             if thread_count is not None:

@@ -1,0 +1,62 @@
+{
+  "benchmarks": [
+    {
+      "name": "sequential-csr-cora-h16-l2",
+      "dataset": "Cora",
+      "hidden_dim": 16,
+      "num_classes": 7,
+      "num_layers": 2,
+      "cwd": "src/GCN/sequential",
+      "command": ["./sequential", "Cora", "16", "7", "2", "../../../weights/Cora/h16_l2_seed42"]
+    },
+    {
+      "name": "sequential-dense-cora-h16-l2",
+      "dataset": "Cora",
+      "hidden_dim": 16,
+      "num_classes": 7,
+      "num_layers": 2,
+      "cwd": "src/GCN/sequential_dense",
+      "command": ["./sequential_dense", "Cora", "16", "7", "2", "../../../weights/Cora/h16_l2_seed42", "1024"]
+    },
+    {
+      "name": "cpu-vertex-cora-h16-l2",
+      "dataset": "Cora",
+      "hidden_dim": 16,
+      "num_classes": 7,
+      "num_layers": 2,
+      "threads": [1, 2, 4, 8],
+      "cwd": "src/GCN/CPU_parallelization/vertex_parallelization",
+      "command": ["./vertex_cpu", "Cora", "16", "7", "2", "../../../../weights/Cora/h16_l2_seed42"]
+    },
+    {
+      "name": "cpu-edge-cora-h16-l2",
+      "dataset": "Cora",
+      "hidden_dim": 16,
+      "num_classes": 7,
+      "num_layers": 2,
+      "threads": [1, 2, 4, 8],
+      "cwd": "src/GCN/CPU_parallelization/edge_parallelization",
+      "command": ["./program", "Cora", "16", "7", "2", "../../../../weights/Cora/h16_l2_seed42"]
+    },
+    {
+      "name": "cpu-message-batching-cora-h16-l2",
+      "dataset": "Cora",
+      "hidden_dim": 16,
+      "num_classes": 7,
+      "num_layers": 2,
+      "threads": [1, 2, 4, 8],
+      "cwd": "src/GCN/CPU_parallelization/message_batching",
+      "command": ["./message_cpu", "Cora", "16", "7", "2", "../../../../weights/Cora/h16_l2_seed42", "4096"]
+    },
+    {
+      "name": "cpu-dense-cora-h16-l2",
+      "dataset": "Cora",
+      "hidden_dim": 16,
+      "num_classes": 7,
+      "num_layers": 2,
+      "threads": [1, 2, 4, 8],
+      "cwd": "src/GCN/CPU_parallelization/dense_parallelization",
+      "command": ["./dense_cpu", "Cora", "16", "7", "2", "../../../../weights/Cora/h16_l2_seed42", "{threads}", "1024"]
+    }
+  ]
+}

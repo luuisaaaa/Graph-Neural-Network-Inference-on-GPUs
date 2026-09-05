@@ -51,6 +51,16 @@ copy the JSON file to add CPU, CUDA, dataset, feature-size, depth, and OpenMP
 thread-count configurations. Results are written under `results/` and include
 the Git commit, host, and platform so measurements remain traceable.
 
+Ready-to-use configurations cover every current implementation:
+
+    python src/scripts/run_benchmarks.py --config benchmark_config_cpu.json
+    python src/scripts/run_benchmarks.py --config benchmark_config_cuda.json
+
+The CPU configuration tests 1, 2, 4, and 8 threads where applicable. Command
+arguments may use the `{threads}` placeholder; the runner substitutes it and
+also sets `OMP_NUM_THREADS`. Compile each executable using the name referenced
+by its configuration before starting a benchmark campaign.
+
 Synthetic graphs
 ----------------
 
