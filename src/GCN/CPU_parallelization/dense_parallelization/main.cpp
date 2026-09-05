@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <chrono>
 #include <cmath>
 #include <cstdlib>
 #include <iomanip>
@@ -9,16 +8,11 @@
 #include <thread>
 #include <vector>
 
+#include "../../utilities/benchmark.h"
 #include "../../utilities/graph.h"
 #include "../../utilities/inference.h"
 
 namespace {
-
-using Clock = std::chrono::steady_clock;
-
-double elapsedMilliseconds(Clock::time_point begin, Clock::time_point end) {
-    return std::chrono::duration<double, std::milli>(end - begin).count();
-}
 
 bool checkedMultiply(size_t lhs, size_t rhs, size_t& result) {
     if (lhs != 0 && rhs > std::numeric_limits<size_t>::max() / lhs) {
@@ -30,7 +24,8 @@ bool checkedMultiply(size_t lhs, size_t rhs, size_t& result) {
 
 unsigned int chooseThreadCount(int num_nodes, int requested_threads) {
     if (requested_threads > 0) {
-        return static_cast<unsigned int>(requested_threads);
+        return std::min(static_cast<unsigned int>(requested_threads),
+                        static_cast<unsigned int>(num_nodes));
     }
 
     const unsigned int hardware_threads = std::thread::hardware_concurrency();
@@ -157,7 +152,7 @@ int main(int argc, char* argv[]) {
     for (int src = 0; src < num_nodes; ++src) {
         for (int edge = row_pointers[src]; edge < row_pointers[src + 1]; ++edge) {
             const int dest = column_indices[edge];
-            adjacency[static_cast<size_t>(src) * num_nodes + dest] = 1.0f;
+            adjacency[static_cast<size_t>(src) * num_nodes + dest] += 1.0f;
             ++in_degree[dest];
         }
     }
@@ -180,7 +175,7 @@ int main(int argc, char* argv[]) {
     std::vector<float> h_current = graph.getNodeFeatures();
 
     std::cout << "Inizio elaborazione inference dense parallela..." << std::endl;
-    const auto inference_begin = Clock::now();
+    const auto inference_begin = BenchmarkClock::now();
 
     int current_dim = feature_dim;
     for (int layer = 0; layer < num_layers; ++layer) {
@@ -192,13 +187,16 @@ int main(int argc, char* argv[]) {
 
             if (in_degree[dest] > 0) {
                 for (int src = 0; src < num_nodes; ++src) {
-                    if (adjacency[static_cast<size_t>(src) * num_nodes + dest] == 0.0f) {
+                    const float edge_multiplicity =
+                        adjacency[static_cast<size_t>(src) * num_nodes + dest];
+                    if (edge_multiplicity == 0.0f) {
                         continue;
                     }
 
                     const size_t source_offset = static_cast<size_t>(src) * current_dim;
                     for (int feature = 0; feature < current_dim; ++feature) {
-                        message[feature] += h_current[source_offset + feature];
+                        message[feature] +=
+                            edge_multiplicity * h_current[source_offset + feature];
                     }
                 }
 
@@ -247,23 +245,21 @@ int main(int argc, char* argv[]) {
         }
     });
 
-    const auto inference_end = Clock::now();
-    const double inference_ms = elapsedMilliseconds(inference_begin, inference_end);
-    const double seconds = inference_ms / 1000.0;
-    const double nodes_per_second = seconds > 0.0 ? num_nodes / seconds : 0.0;
-    const double messages_per_second = seconds > 0.0
-        ? static_cast<double>(num_edges) * num_layers / seconds
-        : 0.0;
-
-    std::cout << std::fixed << std::setprecision(6)
-              << "RESULT implementation=cpu-dense-parallel"
-              << " inference_ms=" << inference_ms
-              << " nodes_per_second=" << nodes_per_second
-              << " messages_per_second=" << messages_per_second
-              << " dense_adjacency_mb="
-              << (static_cast<double>(adjacency_bytes) / (1024.0 * 1024.0))
-              << " threads=" << num_threads
-              << std::endl;
+    const auto inference_end = BenchmarkClock::now();
+    std::uint64_t weight_elements = 0;
+    for (const LayerWeights& layer_weights : weights) {
+        weight_elements += layer_weights.W.size();
+    }
+    const int max_dim = std::max({feature_dim, hidden_dim, num_classes});
+    const std::uint64_t working_bytes = adjacency_bytes +
+        static_cast<std::uint64_t>(num_nodes) * sizeof(int) +
+        2ULL * num_nodes * max_dim * sizeof(float) +
+        static_cast<std::uint64_t>(num_threads) * max_dim * sizeof(float);
+    const MemoryMetrics memory = makeMemoryMetrics(
+        num_nodes, num_edges, feature_dim, weight_elements, working_bytes);
+    reportResults("cpu-dense-parallel", h_current, graph.getLabels(), num_nodes, num_edges,
+                  num_classes, num_layers,
+                  elapsedMilliseconds(inference_begin, inference_end), memory);
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
     return 0;

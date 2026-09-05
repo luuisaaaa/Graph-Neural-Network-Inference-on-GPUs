@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <chrono>
 #include <cmath>
 #include <cstdlib>
 #include <iomanip>
@@ -8,16 +7,11 @@
 #include <string>
 #include <vector>
 
+#include "../utilities/benchmark.h"
 #include "../utilities/graph.h"
 #include "../utilities/inference.h"
 
 namespace {
-
-using Clock = std::chrono::steady_clock;
-
-double elapsedMilliseconds(Clock::time_point begin, Clock::time_point end) {
-    return std::chrono::duration<double, std::milli>(end - begin).count();
-}
 
 bool checkedMultiply(size_t lhs, size_t rhs, size_t& result) {
     if (lhs != 0 && rhs > std::numeric_limits<size_t>::max() / lhs) {
@@ -113,7 +107,7 @@ int main(int argc, char* argv[]) {
     for (int src = 0; src < num_nodes; ++src) {
         for (int edge = row_pointers[src]; edge < row_pointers[src + 1]; ++edge) {
             const int dest = column_indices[edge];
-            adjacency[static_cast<size_t>(src) * num_nodes + dest] = 1.0f;
+            adjacency[static_cast<size_t>(src) * num_nodes + dest] += 1.0f;
             ++in_degree[dest];
         }
     }
@@ -133,30 +127,30 @@ int main(int argc, char* argv[]) {
     }
     std::cout << "Pesi precaricati da: " << weights_path << std::endl;
 
-    std::vector<std::vector<float>> h_current(num_nodes);
-    for (int vertex = 0; vertex < num_nodes; ++vertex) {
-        h_current[vertex] = graph.getVertex(vertex).features;
-    }
+    std::vector<float> h_current = graph.getNodeFeatures();
 
     std::cout << "Inizio elaborazione inference dense..." << std::endl;
-    const auto inference_begin = Clock::now();
+    const auto inference_begin = BenchmarkClock::now();
 
     int current_dim = feature_dim;
     for (int layer = 0; layer < num_layers; ++layer) {
         const int next_dim = weights[layer].out_dim;
-        std::vector<std::vector<float>> h_next(num_nodes,
-                                               std::vector<float>(next_dim, 0.0f));
+        std::vector<float> h_next(static_cast<size_t>(num_nodes) * next_dim, 0.0f);
 
         for (int dest = 0; dest < num_nodes; ++dest) {
             std::vector<float> message(current_dim, 0.0f);
 
             if (in_degree[dest] > 0) {
                 for (int src = 0; src < num_nodes; ++src) {
-                    if (adjacency[static_cast<size_t>(src) * num_nodes + dest] == 0.0f) {
+                    const float edge_multiplicity =
+                        adjacency[static_cast<size_t>(src) * num_nodes + dest];
+                    if (edge_multiplicity == 0.0f) {
                         continue;
                     }
                     for (int feature = 0; feature < current_dim; ++feature) {
-                        message[feature] += h_current[src][feature];
+                        message[feature] +=
+                            edge_multiplicity *
+                            h_current[static_cast<size_t>(src) * current_dim + feature];
                     }
                 }
 
@@ -165,9 +159,11 @@ int main(int argc, char* argv[]) {
                     value *= inverse_degree;
                 }
             } else {
-                message = h_current[dest];
+                const size_t vertex_offset = static_cast<size_t>(dest) * current_dim;
+                std::copy_n(h_current.begin() + vertex_offset, current_dim, message.begin());
             }
 
+            const size_t output_offset = static_cast<size_t>(dest) * next_dim;
             for (int output = 0; output < next_dim; ++output) {
                 float dot_product = 0.0f;
                 const size_t weight_offset = static_cast<size_t>(output) * current_dim;
@@ -175,11 +171,11 @@ int main(int argc, char* argv[]) {
                     dot_product += weights[layer].W[weight_offset + feature] *
                                    message[feature];
                 }
-                h_next[dest][output] = relu(dot_product);
+                h_next[output_offset + output] = relu(dot_product);
             }
         }
 
-        h_current = std::move(h_next);
+        h_current.swap(h_next);
         current_dim = next_dim;
         std::cout << "-> Livello " << layer + 1 << "/" << num_layers
                   << " completato." << std::endl;
@@ -187,38 +183,38 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Calcolo Softmax..." << std::endl;
     for (int vertex = 0; vertex < num_nodes; ++vertex) {
-        float max_logit = h_current[vertex][0];
+        const size_t offset = static_cast<size_t>(vertex) * num_classes;
+        float max_logit = h_current[offset];
         for (int class_id = 1; class_id < num_classes; ++class_id) {
-            max_logit = std::max(max_logit, h_current[vertex][class_id]);
+            max_logit = std::max(max_logit, h_current[offset + class_id]);
         }
 
         float sum_exp = 0.0f;
         for (int class_id = 0; class_id < num_classes; ++class_id) {
-            h_current[vertex][class_id] =
-                std::exp(h_current[vertex][class_id] - max_logit);
-            sum_exp += h_current[vertex][class_id];
+            h_current[offset + class_id] =
+                std::exp(h_current[offset + class_id] - max_logit);
+            sum_exp += h_current[offset + class_id];
         }
         for (int class_id = 0; class_id < num_classes; ++class_id) {
-            h_current[vertex][class_id] /= sum_exp;
+            h_current[offset + class_id] /= sum_exp;
         }
     }
 
-    const auto inference_end = Clock::now();
-    const double inference_ms = elapsedMilliseconds(inference_begin, inference_end);
-    const double seconds = inference_ms / 1000.0;
-    const double nodes_per_second = seconds > 0.0 ? num_nodes / seconds : 0.0;
-    const double messages_per_second = seconds > 0.0
-        ? static_cast<double>(num_edges) * num_layers / seconds
-        : 0.0;
-
-    std::cout << std::fixed << std::setprecision(6)
-              << "RESULT implementation=sequential-dense"
-              << " inference_ms=" << inference_ms
-              << " nodes_per_second=" << nodes_per_second
-              << " messages_per_second=" << messages_per_second
-              << " dense_adjacency_mb="
-              << (static_cast<double>(adjacency_bytes) / (1024.0 * 1024.0))
-              << std::endl;
+    const auto inference_end = BenchmarkClock::now();
+    std::uint64_t weight_elements = 0;
+    for (const LayerWeights& layer_weights : weights) {
+        weight_elements += layer_weights.W.size();
+    }
+    const int max_dim = std::max({feature_dim, hidden_dim, num_classes});
+    const std::uint64_t working_bytes = adjacency_bytes +
+        static_cast<std::uint64_t>(num_nodes) * sizeof(int) +
+        2ULL * num_nodes * max_dim * sizeof(float) +
+        static_cast<std::uint64_t>(max_dim) * sizeof(float);
+    const MemoryMetrics memory = makeMemoryMetrics(
+        num_nodes, num_edges, feature_dim, weight_elements, working_bytes);
+    reportResults("sequential-dense", h_current, graph.getLabels(), num_nodes, num_edges,
+                  num_classes, num_layers,
+                  elapsedMilliseconds(inference_begin, inference_end), memory);
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
     return 0;
