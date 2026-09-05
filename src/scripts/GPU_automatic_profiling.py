@@ -8,10 +8,11 @@ EXE_DIR = "../GCN/CUDA/edge_parallelization/basic_version"
 EXE_NAME = "./program"
 OUTPUT_TXT = "profiling.txt"
 DATASET_DIR = "../../dataset/converted"
+SEED = 42
 
 # --- COMBINAZIONI ---
-datasets = ["Cora", "Erdos_100k_directed"] 
-hidden_dims = [64, 128]
+datasets = ["Cora"] 
+hidden_dims = [64, 256]
 layers_list = [2, 4]
 
 # Numero classi finali
@@ -71,10 +72,13 @@ if __name__ == "__main__":
 
             print(f"Eseguo: {dataset} | Hidden: {hidden} | Livelli: {layers}...")
             
+            # Percorso dei pesi calcolato in base alla cartella di esecuzione (5 livelli di profondità per CUDA basic_version)
+            pesi_dir = f"../../../../../weights/{dataset}/h{hidden}_l{layers}_seed{SEED}"
+            
             # Comando ncu: output testuale standard
             cmd = [
                 "ncu", "--metrics", metrics_str,
-                EXE_NAME, str(dataset), str(hidden), str(classes), str(layers)
+                EXE_NAME, str(dataset), str(hidden), str(classes), str(layers), pesi_dir
             ]
             
             proc = subprocess.run(cmd, cwd=EXE_DIR, capture_output=True, text=True)

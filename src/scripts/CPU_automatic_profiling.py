@@ -8,10 +8,11 @@ EXE_DIR = "../GCN/CPU_parallelization/edge_parallelization"
 EXE_NAME = "./program"
 OUTPUT_TXT = "profiling.txt"
 DATASET_DIR = "../../dataset/converted"
+SEED = 42
 
 # --- COMBINAZIONI ---
-datasets = ["Cora","Erdos_100k_directed"] 
-hidden_dims = [64, 128]
+datasets = ["Cora"] 
+hidden_dims = [64, 256]
 layers_list = [2, 4]
 
 # Numero classi finali
@@ -21,8 +22,6 @@ dataset_classes = {
     "ogbn-products": 47,
     "Erdos_100k_directed": 10
 }
-
-
 
 def get_dataset_info(dataset_name):
     meta_path = os.path.join(DATASET_DIR, dataset_name, "metadata.txt")
@@ -61,10 +60,12 @@ if __name__ == "__main__":
 
             print(f"Eseguo: {dataset} | Hidden: {hidden} | Livelli: {layers}...")
             
+            pesi_dir = f"../../../../weights/{dataset}/h{hidden}_l{layers}_seed{SEED}"
+            
             cmd = [
                 "perf", "stat", "-x,", "-i",
                 "-e", "cycles,instructions,L1-dcache-loads,L1-dcache-load-misses",
-                EXE_NAME, str(dataset), str(hidden), str(classes), str(layers)
+                EXE_NAME, str(dataset), str(hidden), str(classes), str(layers), pesi_dir
             ]
 
             proc = subprocess.run(cmd, cwd=EXE_DIR, capture_output=True, text=True)
