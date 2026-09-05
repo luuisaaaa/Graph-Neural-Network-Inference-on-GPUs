@@ -10,10 +10,6 @@ features, labels, and metadata. Examples:
     python src/scripts/convert_dataset.py planetoid Cora
     python src/scripts/convert_dataset.py planetoid PubMed
     python src/scripts/convert_dataset.py ogb ogbn-arxiv
-    python src/scripts/convert_dataset.py npz graph.npz --name MyGraph --undirected
-
-NPZ inputs must contain `edge_index` (or `src` and `dst`), `node_features`
-(or `x`), and optionally `labels` (or `y`).
 
 Comparable outputs and benchmarks
 ---------------------------------
