@@ -269,13 +269,28 @@ int main(int argc, char* argv[]){
     checkCudaError(cudaEventElapsedTime(&inference_ms, inference_begin, inference_end));
 
     // Copia dell'output sul vettore host finale
-    std::vector<float> h_output(num_nodes * num_classes, 0.0f);
-    checkCudaError(cudaMemcpy(h_output.data(), d_h_current, num_nodes * num_classes * sizeof(float), cudaMemcpyDeviceToHost));
+    std::vector<float> h_output(static_cast<size_t>(num_nodes) * num_classes, 0.0f);
+    checkCudaError(cudaMemcpy(h_output.data(), d_h_current, h_output.size() * sizeof(float), cudaMemcpyDeviceToHost));
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
 
-    // Stampa standardizzata del throughput e del tempo
-    reportResults("cuda-edge-parallel-basic", num_nodes, num_edges, num_classes, num_layers, inference_ms);
+    // Calcolo memorie e stampa standardizzata
+    const std::uint64_t host_working_bytes = 
+        (2ULL * num_edges + num_nodes) * sizeof(int) + 
+        total_weights_size * sizeof(float) + 
+        static_cast<std::uint64_t>(num_layers) * sizeof(int) + 
+        static_cast<std::uint64_t>(num_nodes) * num_classes * sizeof(float);
+        
+    const std::uint64_t device_bytes = 
+        (2ULL * num_edges + num_nodes) * sizeof(int) + 
+        3ULL * num_nodes * max_dim * sizeof(float) + 
+        total_weights_size * sizeof(float);
+        
+    const MemoryMetrics memory = makeMemoryMetrics(
+        num_nodes, num_edges, feature_dim, total_weights_size, host_working_bytes, device_bytes);
+        
+    reportResults("cuda-edge-parallel-basic", h_output, g.getLabels(), num_nodes, num_edges, 
+                  num_classes, num_layers, inference_ms, memory);
 
     // Pulizia finale della memoria GPU e degli eventi
     checkCudaError(cudaEventDestroy(inference_begin));

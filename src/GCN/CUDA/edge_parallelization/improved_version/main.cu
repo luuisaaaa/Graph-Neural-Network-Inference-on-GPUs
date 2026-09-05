@@ -316,7 +316,23 @@ int main(int argc, char* argv[]){
 
     std::cout << "Elaborazione conclusa con successo!" << std::endl;
 
-    reportResults("cuda-edge-parallel-improved", num_nodes, num_edges, num_classes, num_layers, inference_ms);
+    // Calcolo memorie e stampa standardizzata
+    const std::uint64_t host_working_bytes = 
+        (2ULL * num_edges + num_nodes) * sizeof(int) + 
+        total_weights_size * sizeof(float) + 
+        static_cast<std::uint64_t>(num_layers) * sizeof(int) + 
+        static_cast<std::uint64_t>(num_nodes) * num_classes * sizeof(float);
+        
+    const std::uint64_t device_bytes = 
+        (2ULL * num_edges + num_nodes) * sizeof(int) + 
+        3ULL * num_nodes * max_dim * sizeof(float) + 
+        total_weights_size * sizeof(float);
+        
+    const MemoryMetrics memory = makeMemoryMetrics(
+        num_nodes, num_edges, feature_dim, total_weights_size, host_working_bytes, device_bytes);
+        
+    reportResults("cuda-edge-parallel-improved", h_output, g.getLabels(), num_nodes, num_edges, 
+                  num_classes, num_layers, inference_ms, memory);
 
     checkCudaError(cudaEventDestroy(inference_begin));
     checkCudaError(cudaEventDestroy(inference_end));
