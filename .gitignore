@@ -7,7 +7,10 @@ datasets/
 .DS_Store
 src/GCN/sequential/sequential
 src/GCN/CPU_parallelization/vertex_parallelization/vertex_cpu
+src/GCN/CPU_parallelization/edge_parallelization/program
+src/GCN/CPU_parallelization/message_batching/message_cpu
 src/GCN/sequential_dense/sequential_dense
 src/GCN/CPU_parallelization/dense_parallelization/dense_cpu
+src/GCN/CUDA/**/program
 results/
 __pycache__
