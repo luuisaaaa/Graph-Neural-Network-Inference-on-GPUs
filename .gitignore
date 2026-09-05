@@ -1,9 +1,8 @@
 .venv
 .vscode
 dataset/raw/
+dataset/converted/PubMed/
+dataset/converted/ogbn-arxiv/
+datasets/
+.DS_Store
 __pycache__
-labels.txt
-metadata.txt
-column_indices.txt
-node_features.txt
-row_pointers.txt
