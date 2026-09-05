@@ -88,3 +88,32 @@ g++ -O3 -std=c++17 main.cpp ../utilities/graph.cpp ../utilities/inference.cpp -o
 ./sequential PubMed 16 3 2 ../../../weights/PubMed/h16_l2_seed42
 ./sequential ogbn-arxiv 16 40 2 ../../../weights/ogbn-arxiv/h16_l2_seed42
 ```
+
+Sparse CSR versus dense adjacency
+---------------------------------
+
+The dense implementations materialize an `N x N` float adjacency matrix while
+keeping the same incoming-neighbor mean, fixed weights, ReLU, and softmax used
+by the CSR baseline. This makes their output directly comparable with the
+sequential sparse implementation. Because dense storage grows quadratically,
+both programs reject runs above a configurable memory limit (1024 MB by
+default).
+
+Build and run the sequential dense version from `src/GCN/sequential_dense`:
+
+```bash
+g++ -O3 -std=c++17 main.cpp ../utilities/graph.cpp ../utilities/inference.cpp -o sequential_dense
+./sequential_dense Cora 16 7 2 ../../../weights/Cora/h16_l2_seed42 1024
+```
+
+Build and run the parallel dense version from
+`src/GCN/CPU_parallelization/dense_parallelization`:
+
+```bash
+g++ -O3 -std=c++17 -pthread main.cpp ../../utilities/graph.cpp ../../utilities/inference.cpp -o dense_cpu
+./dense_cpu Cora 16 7 2 ../../../../weights/Cora/h16_l2_seed42 4 1024
+```
+
+The final optional arguments are respectively the dense-memory limit in MB for
+the sequential program, and the thread count followed by the memory limit for
+the parallel program. Compiled executables should not be committed.
