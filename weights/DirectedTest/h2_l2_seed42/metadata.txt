@@ -1,0 +1,8 @@
+format_version:1
+dataset:DirectedTest
+seed:42
+num_layers:2
+layer_0_in:2
+layer_0_out:2
+layer_1_in:2
+layer_1_out:2
