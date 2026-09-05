@@ -1,0 +1,580 @@
+--------- Test: per grafi differenti ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 128
+Classi: 7
+Livelli: 2
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+RESULT implementation:cpu-edge-parallel
+Tempo:175.27 ms
+Nodi per secondo:30902 nodes/s
+Archi per secondo:120457 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:170.06 ms
+Nodi per secondo:31847 nodes/s
+Archi per secondo:124144 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:197.11 ms
+Nodi per secondo:27477 nodes/s
+Archi per secondo:107109 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:169.07 ms
+Nodi per secondo:32034 nodes/s
+Archi per secondo:124872 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:156.93 ms
+Nodi per secondo:34512 nodes/s
+Archi per secondo:134531 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:5222879638
+Instructions:7799055313
+IPC:1.49
+L1 Cache Loads:2073562426
+L1 Cache Misses:35580172
+L1 Miss Rate:1.72%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 2
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:1386.57 ms
+Nodi per secondo:244261 nodes/s
+Archi per secondo:1682197 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:1450.56 ms
+Nodi per secondo:233486 nodes/s
+Archi per secondo:1607987 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:1313.98 ms
+Nodi per secondo:257757 nodes/s
+Archi per secondo:1775137 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:1341.76 ms
+Nodi per secondo:252419 nodes/s
+Archi per secondo:1738376 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:1333.11 ms
+Nodi per secondo:254058 nodes/s
+Archi per secondo:1749661 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:44932156426
+Instructions:71934687008
+IPC:1.6
+L1 Cache Loads:18183157345
+L1 Cache Misses:196100545
+L1 Miss Rate:1.08%
+
+
+---------- Parametri ----------
+Dataset: ogbn-products (Nodi: 2449029, Archi: 123718152, Dim. Feature: 100)
+Hidden dimension: 128
+Classi: 47
+Livelli: 2
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+DA FARE
+
+---------- Memoria ----------
+DA FARE
+
+
+---------- Parametri ----------
+Dataset: Erdos_100k_directed (Nodi: 100000, Archi: 4999973, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 2
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+RESULT implementation:cpu-edge-parallel
+Tempo:3310.27 ms
+Nodi per secondo:60418 nodes/s
+Archi per secondo:3020883 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:3241.63 ms
+Nodi per secondo:61697 nodes/s
+Archi per secondo:3084855 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:3177.87 ms
+Nodi per secondo:62935 nodes/s
+Archi per secondo:3146742 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:3257.58 ms
+Nodi per secondo:61395 nodes/s
+Archi per secondo:3069746 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:3129.96 ms
+Nodi per secondo:63899 nodes/s
+Archi per secondo:3194908 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:71979642119
+Instructions:63708057350
+IPC:0.89
+L1 Cache Loads:20996498711
+L1 Cache Misses:254891142
+L1 Miss Rate:1.21%
+
+
+--------- Test: per livelli differenti (4 e 8) ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 128
+Classi: 7
+Livelli: 4
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:319.12 ms
+Nodi per secondo:33943 nodes/s
+Archi per secondo:132314 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:254.49 ms
+Nodi per secondo:42564 nodes/s
+Archi per secondo:165918 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:264.29 ms
+Nodi per secondo:40985 nodes/s
+Archi per secondo:159761 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:250.00 ms
+Nodi per secondo:43329 nodes/s
+Archi per secondo:168899 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:217.67 ms
+Nodi per secondo:49762 nodes/s
+Archi per secondo:193977 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:5851711268
+Instructions:8223440767
+IPC:1.41
+L1 Cache Loads:2154405768
+L1 Cache Misses:39191070
+L1 Miss Rate:1.82%
+
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 128
+Classi: 7
+Livelli: 8
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:433.37 ms
+Nodi per secondo:49989 nodes/s
+Archi per secondo:194862 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:524.42 ms
+Nodi per secondo:41311 nodes/s
+Archi per secondo:161032 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:498.97 ms
+Nodi per secondo:43417 nodes/s
+Archi per secondo:169244 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:443.09 ms
+Nodi per secondo:48893 nodes/s
+Archi per secondo:190587 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:388.34 ms
+Nodi per secondo:55786 nodes/s
+Archi per secondo:217458 edges/s
+
+---------- Memoria ----------
+ESULT implementation:cpu-edge-parallel-profiling
+Cycles:7738243220
+Instructions:9108656660
+IPC:1.18
+L1 Cache Loads:2322275390
+L1 Cache Misses:47693676
+L1 Miss Rate:2.05%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 4
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:2882.96 ms
+Nodi per secondo:234957 nodes/s
+Archi per secondo:1618121 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:2910.18 ms
+Nodi per secondo:232759 nodes/s
+Archi per secondo:1602983 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:3318.67 ms
+Nodi per secondo:204109 nodes/s
+Archi per secondo:1405674 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:2888.65 ms
+Nodi per secondo:234494 nodes/s
+Archi per secondo:1614932 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:2813.87 ms
+Nodi per secondo:240726 nodes/s
+Archi per secondo:1657849 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:78169379277
+Instructions:100584044066
+IPC:1.29
+L1 Cache Loads:24314302132
+L1 Cache Misses:510139209
+L1 Miss Rate:2.1%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 8
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:6039.22 ms
+Nodi per secondo:224324 nodes/s
+Archi per secondo:1544893 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:5831.23 ms
+Nodi per secondo:232326 nodes/s
+Archi per secondo:1599997 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:5842.22 ms
+Nodi per secondo:231888 nodes/s
+Archi per secondo:1596985 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:6045.27 ms
+Nodi per secondo:224100 nodes/s
+Archi per secondo:1543346 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:6247.93 ms
+Nodi per secondo:216831 nodes/s
+Archi per secondo:1493285 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:145939888583
+Instructions:157909193607
+IPC:1.08
+L1 Cache Loads:36618385374
+L1 Cache Misses:1089406479
+L1 Miss Rate:2.98%
+
+---------- Parametri ----------
+Dataset: ogbn-products (Nodi: 2449029, Archi: 123718152, Dim. Feature: 100)
+Hidden dimension: 128
+Classi: 47
+Livelli: 4
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+DA FARE
+
+---------- Memoria ----------
+DA FARE
+
+
+---------- Parametri ----------
+Dataset: ogbn-products (Nodi: 2449029, Archi: 123718152, Dim. Feature: 100)
+Hidden dimension: 128
+Classi: 47
+Livelli: 8
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+DA FARE
+
+---------- Memoria ----------
+DA FARE
+
+
+---------- Parametri ----------
+Dataset: Erdos_100k_directed (Nodi: 100000, Archi: 4999973, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 4
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+RESULT implementation:cpu-edge-parallel
+Tempo:6458.31 ms
+Nodi per secondo:61936 nodes/s
+Archi per secondo:3096766 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:6268.12 ms
+Nodi per secondo:63815 nodes/s
+Archi per secondo:3190732 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:6700.15 ms
+Nodi per secondo:59700 nodes/s
+Archi per secondo:2984993 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:7294.45 ms
+Nodi per secondo:54836 nodes/s
+Archi per secondo:2741797 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:138263449298
+Instructions:101772109648
+IPC:0.74
+L1 Cache Loads:34617713280
+L1 Cache Misses:579269624
+L1 Miss Rate:1.67%
+
+
+---------- Parametri ----------
+Dataset: Erdos_100k_directed (Nodi: 100000, Archi: 4999973, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 8
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:12622.03 ms
+Nodi per secondo:63381 nodes/s
+Archi per secondo:3169045 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:11628.67 ms
+Nodi per secondo:68795 nodes/s
+Archi per secondo:3439755 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:14299.72 ms
+Nodi per secondo:55945 nodes/s
+Archi per secondo:2797242 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:13617.27 ms
+Nodi per secondo:58749 nodes/s
+Archi per secondo:2937431 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:12944.71 ms
+Nodi per secondo:61801 nodes/s
+Archi per secondo:3090048 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:268347940483
+Instructions:177888997022
+IPC:0.66
+L1 Cache Loads:61863361521
+L1 Cache Misses:1211877426
+L1 Miss Rate:1.96%
+
+
+
+--------- Test: per dimensioni differenti (256) ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 256
+Classi: 7
+Livelli: 2
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:316.47 ms
+Nodi per secondo:17114 nodes/s
+Archi per secondo:66711 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:296.53 ms
+Nodi per secondo:18264 nodes/s
+Archi per secondo:71196 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:265.01 ms
+Nodi per secondo:20437 nodes/s
+Archi per secondo:79665 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:282.37 ms
+Nodi per secondo:19180 nodes/s
+Archi per secondo:74766 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:269.74 ms
+Nodi per secondo:20079 nodes/s
+Archi per secondo:78268 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:7146503100
+Instructions:9720264616
+IPC:1.36
+L1 Cache Loads:2343787701
+L1 Cache Misses:67348132
+L1 Miss Rate:2.87%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 2
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:2520.81 ms
+Nodi per secondo:134356 nodes/s
+Archi per secondo:925292 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:2547.09 ms
+Nodi per secondo:132970 nodes/s
+Archi per secondo:915744 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:2804.76 ms
+Nodi per secondo:120754 nodes/s
+Archi per secondo:831616 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:2484.71 ms
+Nodi per secondo:136308 nodes/s
+Archi per secondo:938735 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:2689.66 ms
+Nodi per secondo:125922 nodes/s
+Archi per secondo:867206 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:63595126086
+Instructions:89342619848
+IPC:1.4
+L1 Cache Loads:21644867589
+L1 Cache Misses:417314694
+L1 Miss Rate:1.93%
+
+
+---------- Parametri ----------
+Dataset: ogbn-products (Nodi: 2449029, Archi: 123718152, Dim. Feature: 100)
+Hidden dimension: 256
+Classi: 47
+Livelli: 2
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+DA FARE
+
+---------- Memoria ----------
+DA FARE
+
+
+---------- Parametri ----------
+Dataset: Erdos_100k_directed (Nodi: 100000, Archi: 4999973, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 2
+Thread OpenMP: 8
+
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:4353.09 ms
+Nodi per secondo:45944 nodes/s
+Archi per secondo:2297208 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:4282.12 ms
+Nodi per secondo:46706 nodes/s
+Archi per secondo:2335278 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:4275.51 ms
+Nodi per secondo:46778 nodes/s
+Archi per secondo:2338892 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:4398.50 ms
+Nodi per secondo:45470 nodes/s
+Archi per secondo:2273488 edges/s
+========================================
+RESULT implementation:cpu-edge-parallel
+Tempo:4334.82 ms
+Nodi per secondo:46138 nodes/s
+Archi per secondo:2306888 edges/s
+
+---------- Memoria ----------
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:102371825212
+Instructions:83036163965
+IPC:0.81
+L1 Cache Loads:27815463674
+L1 Cache Misses:409871783
+L1 Miss Rate:1.47%

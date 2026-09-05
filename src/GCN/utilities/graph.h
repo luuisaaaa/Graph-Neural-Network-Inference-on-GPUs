@@ -30,6 +30,9 @@ public:
     const std::vector<int>& getColumnIndices() const;
     const std::vector<float>& getNodeFeatures() const;
     const std::vector<int>& getLabels() const;
+    std::vector<int> getEdgeSrc() const;
+    const std::vector<int>& getEdgeDest() const;
+    std::vector<int> getInDegree() const;
 
 private:
     int num_nodes = 0;
