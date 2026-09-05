@@ -157,7 +157,8 @@ int main(int argc, char* argv[])
     
     const int max_dim = std::max({feature_dim, hidden_dim, num_classes});
     const std::uint64_t copied_structs_bytes = (static_cast<std::uint64_t>(num_edges) + num_nodes) * sizeof(int);
-    const std::uint64_t activation_bytes = 2ULL * num_nodes * max_dim * sizeof(float);
+    // Al picco convivono input del layer, messaggi aggregati e output del layer.
+    const std::uint64_t activation_bytes = 3ULL * num_nodes * max_dim * sizeof(float);
     
     const MemoryMetrics memory = makeMemoryMetrics(
         num_nodes, num_edges, feature_dim, weight_elements, 
