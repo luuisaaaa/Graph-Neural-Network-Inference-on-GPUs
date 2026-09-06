@@ -4,24 +4,16 @@ import sys
 import itertools
 
 # --- CONFIGURAZIONE ---
-EXE_DIR = "../GCN/CPU_parallelization/edge_parallelization"
+EXE_DIR = "../GCN/sequential_dense"
 EXE_NAME = "./program"
-OUTPUT_TXT = "profiling.txt"
+OUTPUT_TXT = "profiling_results.txt"
 DATASET_DIR = "../../dataset/converted"
 SEED = 42
 
 # --- COMBINAZIONI ---
-datasets = ["Cora"] 
-hidden_dims = [64, 256]
-layers_list = [2, 4]
-
-# Numero classi finali
-dataset_classes = {
-    "Cora": 7,
-    "ogbn-arxiv": 40,
-    "ogbn-products": 47,
-    "Erdos_100k_directed": 10
-}
+datasets = ["Cora","ErdosRenyi_5k"] 
+hidden_dims = [64]
+layers_list = [2]
 
 def get_dataset_info(dataset_name):
     meta_path = os.path.join(DATASET_DIR, dataset_name, "metadata.txt")
@@ -36,20 +28,21 @@ def get_dataset_info(dataset_name):
             if len(parts) == 2:
                 info[parts[0].strip()] = parts[1].strip()
                 
-    for key in ["num_nodes", "num_edges", "feature_dim"]:
+    for key in ["num_nodes", "num_edges", "feature_dim", "num_classes"]:
         if key not in info:
             print(f"Errore critico: metadato mancante '{key}' nel file {meta_path}.")
             sys.exit(1)
             
-    return f"(Nodi: {info['num_nodes']}, Archi: {info['num_edges']}, Dim. Feature: {info['feature_dim']})"
+    desc = f"(Nodi: {info['num_nodes']}, Archi: {info['num_edges']}, Dim. Feature: {info['feature_dim']})"
+    return desc, int(info['num_classes'])
 
 if __name__ == "__main__":
-    print(f"Inizio profilazione con OpenMP inherit. Output in: {OUTPUT_TXT}")
+    print(f"Inizio profilazione CPU. Output in: {OUTPUT_TXT}")
     
     with open(OUTPUT_TXT, "a") as f_txt:
         for dataset, hidden, layers in itertools.product(datasets, hidden_dims, layers_list):
-            classes = dataset_classes.get(dataset, 2)
-            info_nodi = get_dataset_info(dataset)
+            
+            info_nodi, classes = get_dataset_info(dataset)
             
             f_txt.write(f"---------- Parametri ----------\n")
             f_txt.write(f"Dataset: {dataset} {info_nodi}\n")
@@ -60,7 +53,7 @@ if __name__ == "__main__":
 
             print(f"Eseguo: {dataset} | Hidden: {hidden} | Livelli: {layers}...")
             
-            pesi_dir = f"../../../../weights/{dataset}/h{hidden}_l{layers}_seed{SEED}"
+            pesi_dir = f"../../../weights/{dataset}/h{hidden}_l{layers}_seed{SEED}"
             
             cmd = [
                 "perf", "stat", "-x,", "-i",
@@ -70,14 +63,21 @@ if __name__ == "__main__":
 
             proc = subprocess.run(cmd, cwd=EXE_DIR, capture_output=True, text=True)
             
-            # Controllo immediato di terminazione
             if proc.returncode != 0:
                 print(f"\n[!] Errore durante l'esecuzione di: {' '.join(cmd)}")
                 print(f"Codice uscita: {proc.returncode}")
-                print(f"Stdout del programma:\n{proc.stdout}")
-                print(f"Stderr di perf:\n{proc.stderr}")
+                print(f"Stdout:\n{proc.stdout}")
+                print(f"Stderr:\n{proc.stderr}")
                 sys.exit(1)
 
+            # Estrazione dinamica del nome dell'implementazione
+            implementation_mode = "unknown"
+            for out_line in proc.stdout.strip().split("\n"):
+                if out_line.startswith("RESULT implementation="):
+                    implementation_mode = out_line.split("=", 1)[1].strip()
+                    break
+
+            # Estrazione delle metriche di perf
             lines = proc.stderr.strip().split("\n")
             cycles, instr, l1_loads, l1_misses = 0, 0, 0, 0
             
@@ -103,7 +103,7 @@ if __name__ == "__main__":
             l1_rate = round((l1_misses / l1_loads) * 100, 2) if l1_loads else 0.0
             
             f_txt.write("========================================\n")
-            f_txt.write("RESULT implementation:cpu-edge-parallel-profiling\n")
+            f_txt.write(f"RESULT implementation:{implementation_mode}-profiling\n")
             f_txt.write(f"Cycles:{cycles}\n")
             f_txt.write(f"Instructions:{instr}\n")
             f_txt.write(f"IPC:{ipc}\n")
@@ -112,4 +112,4 @@ if __name__ == "__main__":
             f_txt.write(f"L1 Miss Rate:{l1_rate}%\n\n\n")
             f_txt.flush()
 
-    print(f"\nProfilazione completata con successo! File aggiornato in: {OUTPUT_TXT}")
+    print(f"\nProfilazione CPU completata! File aggiornato in: {OUTPUT_TXT}")
