@@ -1,0 +1,68 @@
+---------- Confronto architetturale ---------
+
+---------- Descrizione Configurazione ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+Modalita': cuda-vertex-compressed-fp16
+---------- Risultati Medi (3 runs) ----------
+inference_ms=53.68
+graph_nodes_per_second=50465
+node_updates_per_second=100930
+messages_per_second=393434
+topology_memory_bytes=53060
+feature_memory_bytes=15522256
+label_memory_bytes=10832
+weight_memory_bytes=368640
+working_memory_bytes=8085184
+device_memory_bytes=15835460
+estimated_total_memory_bytes=39875432
+probability_checksum=14816598.2031
+prediction_checksum=10928232346061216751
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Modalita': cuda-vertex-compressed-fp16
+---------- Risultati Medi (3 runs) ----------
+inference_ms=1353.58
+graph_nodes_per_second=125109
+node_updates_per_second=250218
+messages_per_second=1723216
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=43008
+working_memory_bytes=76487932
+device_memory_bytes=119162348
+estimated_total_memory_bytes=288416624
+probability_checksum=297316643058.3248
+prediction_checksum=11396337088578334522
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-compressed-fp16
+---------- Risultati Medi (3 runs) ----------
+inference_ms=146.60
+graph_nodes_per_second=682125
+node_updates_per_second=1364250
+messages_per_second=13641819
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=35328
+working_memory_bytes=34417488
+device_memory_bytes=59617468
+estimated_total_memory_bytes=150070088
+probability_checksum=28214942801.3638
+prediction_checksum=15882275437821994040
+
+

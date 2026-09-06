@@ -1,0 +1,469 @@
+---------- Confronto architetturale ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching
+Cycles:1235252303
+Instructions:4000636287
+IPC:3.24
+L1 Cache Loads:1226525374
+L1 Cache Misses:2629070
+L1 Miss Rate:0.21%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching
+Cycles:11114397212
+Instructions:29952730240
+IPC:2.69
+L1 Cache Loads:7708058237
+L1 Cache Misses:12481482
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching
+Cycles:19052785819
+Instructions:51838510344
+IPC:2.72
+L1 Cache Loads:13312294524
+L1 Cache Misses:19858308
+L1 Miss Rate:0.15%
+
+
+---------- Analisi topologica e skewed degree distribution ---------
+---------- Parametri ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:12617941392
+Instructions:30010674561
+IPC:2.38
+L1 Cache Loads:7718306393
+L1 Cache Misses:12451111
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:11357100347
+Instructions:29984636794
+IPC:2.64
+L1 Cache Loads:7712894684
+L1 Cache Misses:12171951
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: WattsStrogatz_100k (Nodi: 100000, Archi: 1000000, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:11362354818
+Instructions:29941815726
+IPC:2.64
+L1 Cache Loads:7707269186
+L1 Cache Misses:9332062
+L1 Miss Rate:0.12%
+
+
+---------- Scalabilità ---------
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_10k (Nodi: 10000, Archi: 100162, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:1216644100
+Instructions:3019635544
+IPC:2.48
+L1 Cache Loads:776513542
+L1 Cache Misses:1236314
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_50k (Nodi: 50000, Archi: 499076, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:7359660709
+Instructions:15086442958
+IPC:2.05
+L1 Cache Loads:3872964039
+L1 Cache Misses:6032227
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:11682627814
+Instructions:29987319308
+IPC:2.57
+L1 Cache Loads:7714068344
+L1 Cache Misses:12578247
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_500k (Nodi: 500000, Archi: 5001602, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:60330148801
+Instructions:150170703545
+IPC:2.49
+L1 Cache Loads:38611276454
+L1 Cache Misses:63782326
+L1 Miss Rate:0.17%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:20668839899
+Instructions:51904070057
+IPC:2.51
+L1 Cache Loads:13322725144
+L1 Cache Misses:20630632
+L1 Miss Rate:0.15%
+
+
+
+-------- Impatto della profondità e dimensione nascosta sul modello -----
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:13663247259
+Instructions:29971827303
+IPC:2.19
+L1 Cache Loads:7711716939
+L1 Cache Misses:13945146
+L1 Miss Rate:0.18%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 4
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:23024257979
+Instructions:31169894132
+IPC:1.35
+L1 Cache Loads:7974024245
+L1 Cache Misses:16408171
+L1 Miss Rate:0.21%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 8
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:19463036796
+Instructions:32573612926
+IPC:1.67
+L1 Cache Loads:8335201874
+L1 Cache Misses:24733239
+L1 Miss Rate:0.3%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:13846088147
+Instructions:30630873202
+IPC:2.21
+L1 Cache Loads:7845799237
+L1 Cache Misses:22736645
+L1 Miss Rate:0.29%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 4
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:19151133003
+Instructions:32803821082
+IPC:1.71
+L1 Cache Loads:8317789613
+L1 Cache Misses:44331958
+L1 Miss Rate:0.53%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 8
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:23344062258
+Instructions:37460332172
+IPC:1.6
+L1 Cache Loads:9302516080
+L1 Cache Misses:87949198
+L1 Miss Rate:0.95%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:15899935335
+Instructions:32102464119
+IPC:2.02
+L1 Cache Loads:8137005056
+L1 Cache Misses:38603112
+L1 Miss Rate:0.47%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 4
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:23905089965
+Instructions:39684463056
+IPC:1.66
+L1 Cache Loads:9526106884
+L1 Cache Misses:135446188
+L1 Miss Rate:1.42%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 8
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:44288283121
+Instructions:55866041041
+IPC:1.26
+L1 Cache Loads:12455340128
+L1 Cache Misses:342472130
+L1 Miss Rate:2.75%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:19505054238
+Instructions:51871184211
+IPC:2.66
+L1 Cache Loads:13317261416
+L1 Cache Misses:20867557
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 4
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:21579989190
+Instructions:53106432384
+IPC:2.46
+L1 Cache Loads:13593848946
+L1 Cache Misses:24718585
+L1 Miss Rate:0.18%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 8
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:25229496488
+Instructions:55286036265
+IPC:2.19
+L1 Cache Loads:14101819496
+L1 Cache Misses:31817955
+L1 Miss Rate:0.23%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:21122894672
+Instructions:53043833029
+IPC:2.51
+L1 Cache Loads:13530630058
+L1 Cache Misses:35474536
+L1 Miss Rate:0.26%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 4
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:29172517930
+Instructions:56396752456
+IPC:1.93
+L1 Cache Loads:14199120991
+L1 Cache Misses:72041681
+L1 Miss Rate:0.51%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 8
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:42317006735
+Instructions:64033285400
+IPC:1.51
+L1 Cache Loads:15671712300
+L1 Cache Misses:142193907
+L1 Miss Rate:0.91%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:23550639196
+Instructions:55169681477
+IPC:2.34
+L1 Cache Loads:13924615274
+L1 Cache Misses:60566450
+L1 Miss Rate:0.43%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 4
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:37651461226
+Instructions:67366520932
+IPC:1.79
+L1 Cache Loads:16009291479
+L1 Cache Misses:225544978
+L1 Miss Rate:1.41%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 8
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-message-batching-profiling
+Cycles:68885948061
+Instructions:93486910845
+IPC:1.36
+L1 Cache Loads:20427809278
+L1 Cache Misses:576255676
+L1 Miss Rate:2.82%

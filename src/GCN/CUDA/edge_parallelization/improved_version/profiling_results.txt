@@ -1,0 +1,451 @@
+---------- Confronto architetturale ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:87.36%
+DRAM Throughput:24.73%
+L2 Cache Hit Rate:67.26%
+SM Throughput:50.22%
+IPC (per SM):1.23
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:92.39%
+DRAM Throughput:34.33%
+L2 Cache Hit Rate:61.31%
+SM Throughput:64.34%
+IPC (per SM):1.34
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:91.9%
+DRAM Throughput:36.7%
+L2 Cache Hit Rate:51.19%
+SM Throughput:63.52%
+IPC (per SM):1.33
+
+
+---------- Analisi topologica e skewed degree distribution ---------
+---------- Parametri ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.36%
+DRAM Throughput:77.1%
+L2 Cache Hit Rate:14.98%
+SM Throughput:24.62%
+IPC (per SM):0.59
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.22%
+DRAM Throughput:76.41%
+L2 Cache Hit Rate:20.96%
+SM Throughput:26.11%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: WattsStrogatz_100k (Nodi: 100000, Archi: 1000000, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:92.4%
+DRAM Throughput:31.19%
+L2 Cache Hit Rate:75.5%
+SM Throughput:38.75%
+IPC (per SM):0.92
+
+
+------------ Scalabilità sulla dimensione del grafo -----------
+---------- Parametri ----------
+Dataset: ErdosRenyi_10k (Nodi: 10000, Archi: 100162, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:93.33%
+DRAM Throughput:56.38%
+L2 Cache Hit Rate:62.5%
+SM Throughput:34.41%
+IPC (per SM):0.82
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_50k (Nodi: 50000, Archi: 499076, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.37%
+DRAM Throughput:75.75%
+L2 Cache Hit Rate:20.94%
+SM Throughput:25.62%
+IPC (per SM):0.61
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.35%
+DRAM Throughput:77.08%
+L2 Cache Hit Rate:14.94%
+SM Throughput:24.61%
+IPC (per SM):0.59
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_500k (Nodi: 500000, Archi: 5001602, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.46%
+DRAM Throughput:77.35%
+L2 Cache Hit Rate:10.12%
+SM Throughput:23.57%
+IPC (per SM):0.56
+
+
+------------- Impatto della profondità e dimensione nascosta sul modello ----------
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:92.84%
+DRAM Throughput:68.27%
+L2 Cache Hit Rate:44.05%
+SM Throughput:31.99%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:93.02%
+DRAM Throughput:68.19%
+L2 Cache Hit Rate:44.05%
+SM Throughput:32.02%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:92.87%
+DRAM Throughput:68.27%
+L2 Cache Hit Rate:44.04%
+SM Throughput:32.0%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:92.9%
+DRAM Throughput:68.3%
+L2 Cache Hit Rate:44.05%
+SM Throughput:32.02%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:92.97%
+DRAM Throughput:68.26%
+L2 Cache Hit Rate:44.05%
+SM Throughput:32.03%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:93.0%
+DRAM Throughput:68.21%
+L2 Cache Hit Rate:44.03%
+SM Throughput:32.01%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:92.99%
+DRAM Throughput:68.19%
+L2 Cache Hit Rate:44.01%
+SM Throughput:31.98%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:93.02%
+DRAM Throughput:68.16%
+L2 Cache Hit Rate:43.99%
+SM Throughput:31.97%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:93.03%
+DRAM Throughput:68.18%
+L2 Cache Hit Rate:43.98%
+SM Throughput:31.98%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.16%
+DRAM Throughput:76.45%
+L2 Cache Hit Rate:20.96%
+SM Throughput:26.12%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.2%
+DRAM Throughput:76.4%
+L2 Cache Hit Rate:20.96%
+SM Throughput:26.11%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.21%
+DRAM Throughput:76.43%
+L2 Cache Hit Rate:20.98%
+SM Throughput:26.12%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.3%
+DRAM Throughput:76.36%
+L2 Cache Hit Rate:20.96%
+SM Throughput:26.12%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.3%
+DRAM Throughput:76.35%
+L2 Cache Hit Rate:20.97%
+SM Throughput:26.12%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.21%
+DRAM Throughput:76.39%
+L2 Cache Hit Rate:20.96%
+SM Throughput:26.1%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.3%
+DRAM Throughput:76.28%
+L2 Cache Hit Rate:20.93%
+SM Throughput:26.06%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.17%
+DRAM Throughput:76.3%
+L2 Cache Hit Rate:20.96%
+SM Throughput:26.03%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-edge-parallel-improved-profiling
+Achieved Occupancy:94.33%
+DRAM Throughput:76.21%
+L2 Cache Hit Rate:20.94%
+SM Throughput:26.04%
+IPC (per SM):0.62

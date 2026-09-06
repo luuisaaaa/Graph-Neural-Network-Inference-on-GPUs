@@ -1,0 +1,48 @@
+---------- Confronto architetturale ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-basic-profiling
+Achieved Occupancy:23.82%
+DRAM Throughput:13.2%
+L2 Cache Hit Rate:95.35%
+SM Throughput:7.52%
+IPC (per SM):0.06
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-basic-profiling
+Achieved Occupancy:24.68%
+DRAM Throughput:7.19%
+L2 Cache Hit Rate:94.22%
+SM Throughput:4.41%
+IPC (per SM):0.05
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-basic-profiling
+Achieved Occupancy:25.02%
+DRAM Throughput:14.56%
+L2 Cache Hit Rate:93.86%
+SM Throughput:8.06%
+IPC (per SM):0.07

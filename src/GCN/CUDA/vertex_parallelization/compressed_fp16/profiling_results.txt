@@ -1,0 +1,48 @@
+---------- Confronto architetturale ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-vertex-compressed-fp16-profiling
+Achieved Occupancy:62.54%
+DRAM Throughput:0.3%
+L2 Cache Hit Rate:94.75%
+SM Throughput:17.45%
+IPC (per SM):2.12
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-vertex-compressed-fp16-profiling
+Achieved Occupancy:28.93%
+DRAM Throughput:3.88%
+L2 Cache Hit Rate:56.38%
+SM Throughput:6.62%
+IPC (per SM):0.61
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-vertex-compressed-fp16-profiling
+Achieved Occupancy:77.28%
+DRAM Throughput:9.32%
+L2 Cache Hit Rate:69.91%
+SM Throughput:42.12%
+IPC (per SM):1.94

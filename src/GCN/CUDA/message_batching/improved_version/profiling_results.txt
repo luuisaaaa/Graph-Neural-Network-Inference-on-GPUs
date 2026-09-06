@@ -1,0 +1,454 @@
+---------- Confronto architetturale ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:95.42%
+DRAM Throughput:69.36%
+L2 Cache Hit Rate:44.56%
+SM Throughput:15.06%
+IPC (per SM):0.31
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:100.0%
+DRAM Throughput:42.48%
+L2 Cache Hit Rate:28.21%
+SM Throughput:22.99%
+IPC (per SM):0.67
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:111.84%
+DRAM Throughput:49.76%
+L2 Cache Hit Rate:12.89%
+SM Throughput:25.48%
+IPC (per SM):0.76
+
+
+---------- Analisi topologica e skewed degree distribution ---------
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:105.81%
+DRAM Throughput:48.48%
+L2 Cache Hit Rate:11.78%
+SM Throughput:21.59%
+IPC (per SM):0.62
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:116.87%
+DRAM Throughput:45.53%
+L2 Cache Hit Rate:12.87%
+SM Throughput:25.23%
+IPC (per SM):0.77
+
+
+---------- Parametri ----------
+Dataset: WattsStrogatz_100k (Nodi: 100000, Archi: 1000000, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:86.87%
+DRAM Throughput:17.75%
+L2 Cache Hit Rate:75.13%
+SM Throughput:26.77%
+IPC (per SM):0.79
+
+
+------------ Scalabilità sulla dimensione del grafo -----------
+---------- Parametri ----------
+Dataset: ErdosRenyi_10k (Nodi: 10000, Archi: 100162, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:105.4%
+DRAM Throughput:43.55%
+L2 Cache Hit Rate:24.35%
+SM Throughput:24.13%
+IPC (per SM):0.71
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_50k (Nodi: 50000, Archi: 499076, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:102.2%
+DRAM Throughput:48.19%
+L2 Cache Hit Rate:12.99%
+SM Throughput:21.5%
+IPC (per SM):0.63
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:105.52%
+DRAM Throughput:49.13%
+L2 Cache Hit Rate:11.64%
+SM Throughput:22.26%
+IPC (per SM):0.63
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_500k (Nodi: 500000, Archi: 5001602, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:104.77%
+DRAM Throughput:47.97%
+L2 Cache Hit Rate:10.3%
+SM Throughput:20.96%
+IPC (per SM):0.61
+
+
+------------- Impatto della profondità e dimensione nascosta sul modello ----------
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:99.65%
+DRAM Throughput:42.96%
+L2 Cache Hit Rate:28.21%
+SM Throughput:22.83%
+IPC (per SM):0.67
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:100.49%
+DRAM Throughput:42.55%
+L2 Cache Hit Rate:28.08%
+SM Throughput:23.27%
+IPC (per SM):0.67
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:98.92%
+DRAM Throughput:42.63%
+L2 Cache Hit Rate:28.5%
+SM Throughput:23.09%
+IPC (per SM):0.67
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:99.58%
+DRAM Throughput:43.62%
+L2 Cache Hit Rate:28.18%
+SM Throughput:22.93%
+IPC (per SM):0.67
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:101.98%
+DRAM Throughput:42.13%
+L2 Cache Hit Rate:28.31%
+SM Throughput:22.9%
+IPC (per SM):0.68
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:102.52%
+DRAM Throughput:42.64%
+L2 Cache Hit Rate:28.53%
+SM Throughput:23.37%
+IPC (per SM):0.69
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:102.23%
+DRAM Throughput:42.68%
+L2 Cache Hit Rate:28.35%
+SM Throughput:23.32%
+IPC (per SM):0.69
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:101.41%
+DRAM Throughput:42.86%
+L2 Cache Hit Rate:28.43%
+SM Throughput:23.45%
+IPC (per SM):0.68
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:100.29%
+DRAM Throughput:43.36%
+L2 Cache Hit Rate:27.91%
+SM Throughput:23.15%
+IPC (per SM):0.68
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:116.63%
+DRAM Throughput:48.18%
+L2 Cache Hit Rate:12.99%
+SM Throughput:25.54%
+IPC (per SM):0.77
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:114.21%
+DRAM Throughput:46.16%
+L2 Cache Hit Rate:13.26%
+SM Throughput:24.77%
+IPC (per SM):0.75
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:109.78%
+DRAM Throughput:48.95%
+L2 Cache Hit Rate:12.55%
+SM Throughput:25.48%
+IPC (per SM):0.75
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:113.52%
+DRAM Throughput:48.97%
+L2 Cache Hit Rate:12.92%
+SM Throughput:25.56%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:114.21%
+DRAM Throughput:49.63%
+L2 Cache Hit Rate:13.22%
+SM Throughput:26.29%
+IPC (per SM):0.77
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:111.87%
+DRAM Throughput:48.98%
+L2 Cache Hit Rate:13.32%
+SM Throughput:25.01%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:118.46%
+DRAM Throughput:48.47%
+L2 Cache Hit Rate:13.03%
+SM Throughput:25.86%
+IPC (per SM):0.76
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:111.08%
+DRAM Throughput:47.83%
+L2 Cache Hit Rate:12.9%
+SM Throughput:25.16%
+IPC (per SM):0.74
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cuda-message-batching-improved-profiling
+Achieved Occupancy:111.14%
+DRAM Throughput:49.64%
+L2 Cache Hit Rate:12.88%
+SM Throughput:25.69%
+IPC (per SM):0.74
+
+

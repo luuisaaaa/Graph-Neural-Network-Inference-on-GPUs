@@ -1,0 +1,685 @@
+---------- Confronto architetturale ---------
+
+---------- Descrizione Configurazione ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=57.07
+graph_nodes_per_second=47472
+node_updates_per_second=94944
+messages_per_second=370100
+topology_memory_bytes=53060
+feature_memory_bytes=15522256
+label_memory_bytes=10832
+weight_memory_bytes=368640
+working_memory_bytes=508376
+device_memory_bytes=31466212
+estimated_total_memory_bytes=47929376
+probability_checksum=14816581.1977
+prediction_checksum=4799450288154764542
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=1087.66
+graph_nodes_per_second=155697
+node_updates_per_second=311394
+messages_per_second=2144531
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=43008
+working_memory_bytes=33157628
+device_memory_bytes=178792588
+estimated_total_memory_bytes=304716560
+probability_checksum=297316510813.2744
+prediction_checksum=13795661908192190761
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=119.63
+graph_nodes_per_second=835906
+node_updates_per_second=1671812
+messages_per_second=16717281
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=35328
+working_memory_bytes=8835152
+device_memory_bytes=106835132
+estimated_total_memory_bytes=171705416
+probability_checksum=28214849281.7053
+prediction_checksum=8127382135352894806
+
+
+---------- Analisi topologica e skewed degree distribution ---------
+---------- Descrizione Configurazione ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=77.49
+graph_nodes_per_second=1290447
+node_updates_per_second=2580894
+messages_per_second=25760167
+topology_memory_bytes=4392444
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=35328
+working_memory_bytes=8827792
+device_memory_bytes=106827772
+estimated_total_memory_bytes=171683336
+probability_checksum=27855871962.8040
+prediction_checksum=10220869480833700192
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=119.61
+graph_nodes_per_second=836047
+node_updates_per_second=1672094
+messages_per_second=16720102
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=35328
+working_memory_bytes=8835152
+device_memory_bytes=106835132
+estimated_total_memory_bytes=171705416
+probability_checksum=28214849281.7053
+prediction_checksum=8127382135352894806
+
+
+---------- Descrizione Configurazione ----------
+Dataset: WattsStrogatz_100k (Nodi: 100000, Archi: 1000000, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=72.24
+graph_nodes_per_second=1384279
+node_updates_per_second=2768557
+messages_per_second=27685572
+topology_memory_bytes=4400004
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=35328
+working_memory_bytes=8835352
+device_memory_bytes=106835332
+estimated_total_memory_bytes=171706016
+probability_checksum=26518623733.6918
+prediction_checksum=14732090579562845234
+
+
+----------- Impatto della coalescenza in memoria su GPU -----------
+---------- Descrizione Configurazione ----------
+Dataset: PubMed (Nodi: 19717, Archi: 88648, Dim. Feature: 500)
+Hidden dimension: 64
+Classi: 3
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=47.55
+graph_nodes_per_second=414645
+node_updates_per_second=829290
+messages_per_second=3728506
+topology_memory_bytes=433464
+feature_memory_bytes=39434000
+label_memory_bytes=78868
+weight_memory_bytes=128768
+working_memory_bytes=877724
+device_memory_bytes=79430232
+estimated_total_memory_bytes=120383056
+probability_checksum=388770677.7960
+prediction_checksum=4042031752287801002
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=119.63
+graph_nodes_per_second=835925
+node_updates_per_second=1671849
+messages_per_second=16717657
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=35328
+working_memory_bytes=8835152
+device_memory_bytes=106835132
+estimated_total_memory_bytes=171705416
+probability_checksum=28214849281.7053
+prediction_checksum=8127382135352894806
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=1104.92
+graph_nodes_per_second=153275
+node_updates_per_second=306550
+messages_per_second=2111173
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=43008
+working_memory_bytes=33157628
+device_memory_bytes=178792588
+estimated_total_memory_bytes=304716560
+probability_checksum=297316510813.2744
+prediction_checksum=13795661908192190761
+
+
+------------ Scalabilità sulla dimensione del grafo -----------
+---------- Descrizione Configurazione ----------
+Dataset: ErdosRenyi_10k (Nodi: 10000, Archi: 100162, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=8.14
+graph_nodes_per_second=1227424
+node_updates_per_second=2454848
+messages_per_second=24588249
+topology_memory_bytes=440652
+feature_memory_bytes=5120000
+label_memory_bytes=40000
+weight_memory_bytes=35328
+working_memory_bytes=916000
+device_memory_bytes=10715980
+estimated_total_memory_bytes=17267960
+probability_checksum=268099773.5855
+prediction_checksum=5697109104298331556
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ErdosRenyi_50k (Nodi: 50000, Archi: 499076, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=38.99
+graph_nodes_per_second=1282355
+node_updates_per_second=2564711
+messages_per_second=25599708
+topology_memory_bytes=2196308
+feature_memory_bytes=25600000
+label_memory_bytes=200000
+weight_memory_bytes=35328
+working_memory_bytes=4431656
+device_memory_bytes=53431636
+estimated_total_memory_bytes=85894928
+probability_checksum=6968133614.9650
+prediction_checksum=8060120283005884666
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=77.53
+graph_nodes_per_second=1289880
+node_updates_per_second=2579761
+messages_per_second=25748855
+topology_memory_bytes=4392444
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=35328
+working_memory_bytes=8827792
+device_memory_bytes=106827772
+estimated_total_memory_bytes=171683336
+probability_checksum=27855871962.8040
+prediction_checksum=10220869480833700192
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ErdosRenyi_500k (Nodi: 500000, Archi: 5001602, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=387.33
+graph_nodes_per_second=1290893
+node_updates_per_second=2581786
+messages_per_second=25826135
+topology_memory_bytes=22006412
+feature_memory_bytes=256000000
+label_memory_bytes=2000000
+weight_memory_bytes=35328
+working_memory_bytes=44041760
+device_memory_bytes=534041740
+estimated_total_memory_bytes=858125240
+probability_checksum=694616323865.9651
+prediction_checksum=12032292118098834917
+
+------------- Impatto della profondità e dimensione nascosta sul modello ----------
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=1073.88
+graph_nodes_per_second=157696
+node_updates_per_second=315391
+messages_per_second=2172059
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=43008
+working_memory_bytes=33157628
+device_memory_bytes=178792588
+estimated_total_memory_bytes=304716560
+probability_checksum=297316510813.2744
+prediction_checksum=13795661908192190761
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 4
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=1788.78
+graph_nodes_per_second=94680
+node_updates_per_second=378719
+messages_per_second=2608186
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=75776
+working_memory_bytes=33190412
+device_memory_bytes=178825356
+estimated_total_memory_bytes=304814880
+probability_checksum=293447670301.4223
+prediction_checksum=251777169749171021
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 8
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=3203.85
+graph_nodes_per_second=52857
+node_updates_per_second=422856
+messages_per_second=2912154
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=141312
+working_memory_bytes=33255980
+device_memory_bytes=178890892
+estimated_total_memory_bytes=305011520
+probability_checksum=294590079319.5172
+prediction_checksum=16991781855338931550
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=2203.02
+graph_nodes_per_second=76885
+node_updates_per_second=153769
+messages_per_second=1058988
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=86016
+working_memory_bytes=33200636
+device_memory_bytes=178835596
+estimated_total_memory_bytes=304845584
+probability_checksum=295397759586.4661
+prediction_checksum=5210533381424058183
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 4
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=5170.88
+graph_nodes_per_second=32753
+node_updates_per_second=131012
+messages_per_second=902263
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=217088
+working_memory_bytes=33331724
+device_memory_bytes=178966668
+estimated_total_memory_bytes=305238816
+probability_checksum=291778195032.9899
+prediction_checksum=10750105055688928451
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 40
+Livelli: 8
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=10966.61
+graph_nodes_per_second=15443
+node_updates_per_second=123545
+messages_per_second=850838
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=479232
+working_memory_bytes=33593900
+device_memory_bytes=179228812
+estimated_total_memory_bytes=306025280
+probability_checksum=293458066859.0389
+prediction_checksum=10182072360523666473
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=4462.02
+graph_nodes_per_second=37954
+node_updates_per_second=75908
+messages_per_second=522769
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=172032
+working_memory_bytes=33286652
+device_memory_bytes=352328844
+estimated_total_memory_bytes=478510864
+probability_checksum=293116503605.7542
+prediction_checksum=8230609337602307034
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 4
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=16438.20
+graph_nodes_per_second=10302
+node_updates_per_second=41208
+messages_per_second=283792
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=696320
+working_memory_bytes=33810956
+device_memory_bytes=352853132
+estimated_total_memory_bytes=480083744
+probability_checksum=292980099213.0862
+prediction_checksum=4308732984793739933
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 8
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=40202.30
+graph_nodes_per_second=4213
+node_updates_per_second=33699
+messages_per_second=232077
+topology_memory_bytes=5342348
+feature_memory_bytes=86703616
+label_memory_bytes=677372
+weight_memory_bytes=1744896
+working_memory_bytes=34859564
+device_memory_bytes=353901708
+estimated_total_memory_bytes=483229504
+probability_checksum=293688263802.1760
+prediction_checksum=8205334214773648243
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=119.64
+graph_nodes_per_second=835881
+node_updates_per_second=1671762
+messages_per_second=16716784
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=35328
+working_memory_bytes=8835152
+device_memory_bytes=106835132
+estimated_total_memory_bytes=171705416
+probability_checksum=28214849281.7053
+prediction_checksum=8127382135352894806
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 4
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=212.98
+graph_nodes_per_second=469533
+node_updates_per_second=1878131
+messages_per_second=18780370
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=68096
+working_memory_bytes=8867936
+device_memory_bytes=106867900
+estimated_total_memory_bytes=171803736
+probability_checksum=27851649692.0011
+prediction_checksum=1330482497556395267
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 8
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=399.91
+graph_nodes_per_second=250055
+node_updates_per_second=2000442
+messages_per_second=20003423
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=133632
+working_memory_bytes=8933504
+device_memory_bytes=106933436
+estimated_total_memory_bytes=172000376
+probability_checksum=27500365620.0067
+prediction_checksum=2545219770176583195
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=239.56
+graph_nodes_per_second=417436
+node_updates_per_second=834871
+messages_per_second=8348296
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=70656
+working_memory_bytes=8870480
+device_memory_bytes=106870460
+estimated_total_memory_bytes=171811400
+probability_checksum=27332739916.0638
+prediction_checksum=8745694907228781274
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 4
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=623.76
+graph_nodes_per_second=160317
+node_updates_per_second=641270
+messages_per_second=6412376
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=201728
+working_memory_bytes=9001568
+device_memory_bytes=107001532
+estimated_total_memory_bytes=172204632
+probability_checksum=27038060554.6881
+prediction_checksum=2378311335871836819
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 8
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=1398.64
+graph_nodes_per_second=71498
+node_updates_per_second=571986
+messages_per_second=5719579
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=463872
+working_memory_bytes=9263744
+device_memory_bytes=107263676
+estimated_total_memory_bytes=172991096
+probability_checksum=27503442651.1597
+prediction_checksum=11006420356627761283
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 2
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=479.13
+graph_nodes_per_second=208713
+node_updates_per_second=417427
+messages_per_second=4174056
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=141312
+working_memory_bytes=8941136
+device_memory_bytes=209341116
+estimated_total_memory_bytes=274423368
+probability_checksum=27725623441.5677
+prediction_checksum=16353500229208020353
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 4
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=2048.04
+graph_nodes_per_second=48827
+node_updates_per_second=195309
+messages_per_second=1952991
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=665600
+working_memory_bytes=9465440
+device_memory_bytes=209865404
+estimated_total_memory_bytes=275996248
+probability_checksum=27432951476.6775
+prediction_checksum=3335342161289878901
+
+
+---------- Descrizione Configurazione ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 8
+Modalita': cuda-vertex-improved
+---------- Risultati Medi (3 runs) ----------
+inference_ms=5217.15
+graph_nodes_per_second=19168
+node_updates_per_second=153340
+messages_per_second=1533327
+topology_memory_bytes=4399804
+feature_memory_bytes=51200000
+label_memory_bytes=400000
+weight_memory_bytes=1714176
+working_memory_bytes=10514048
+device_memory_bytes=210913980
+estimated_total_memory_bytes=279142008
+probability_checksum=27500275409.7859
+prediction_checksum=5597325549134800291

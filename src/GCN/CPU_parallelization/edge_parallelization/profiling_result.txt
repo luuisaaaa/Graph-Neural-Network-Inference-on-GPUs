@@ -1,0 +1,316 @@
+---------- Confronto architetturale ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:1299377475
+Instructions:4008997092
+IPC:3.09
+L1 Cache Loads:1227692909
+L1 Cache Misses:2813271
+L1 Miss Rate:0.23%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:11246442936
+Instructions:29957425326
+IPC:2.66
+L1 Cache Loads:7707508142
+L1 Cache Misses:12460732
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:19005690402
+Instructions:51855984382
+IPC:2.73
+L1 Cache Loads:13312815134
+L1 Cache Misses:20074094
+L1 Miss Rate:0.15%
+
+
+
+---------- Analisi topologica e skewed degree distribution ---------
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:11374594828
+Instructions:29968480313
+IPC:2.63
+L1 Cache Loads:7709809369
+L1 Cache Misses:12503000
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:11215189192
+Instructions:29955221223
+IPC:2.67
+L1 Cache Loads:7707140886
+L1 Cache Misses:12938991
+L1 Miss Rate:0.17%
+
+
+---------- Parametri ----------
+Dataset: WattsStrogatz_100k (Nodi: 100000, Archi: 1000000, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:11136289784
+Instructions:29966698288
+IPC:2.69
+L1 Cache Loads:7709834298
+L1 Cache Misses:9310282
+L1 Miss Rate:0.12%
+
+
+
+---------- Scalabilità ---------
+---------- Parametri ----------
+Dataset: ErdosRenyi_10k (Nodi: 10000, Archi: 100162, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:1120852361
+Instructions:3013404181
+IPC:2.69
+L1 Cache Loads:775376902
+L1 Cache Misses:1203553
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_50k (Nodi: 50000, Archi: 499076, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:5604399587
+Instructions:14991662568
+IPC:2.67
+L1 Cache Loads:3856987297
+L1 Cache Misses:6628838
+L1 Miss Rate:0.17%
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:10961779115
+Instructions:29965904247
+IPC:2.73
+L1 Cache Loads:7709379996
+L1 Cache Misses:12087316
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_500k (Nodi: 500000, Archi: 5001602, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:54434450839
+Instructions:149927779987
+IPC:2.75
+L1 Cache Loads:38565276322
+L1 Cache Misses:60668994
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:19152259050
+Instructions:51855036187
+IPC:2.71
+L1 Cache Loads:13312657107
+L1 Cache Misses:20597043
+L1 Miss Rate:0.15%
+
+
+
+-------- Impatto della profondità e dimensione nascosta sul modello -----
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:11297059496
+Instructions:29955884118
+IPC:2.65
+L1 Cache Loads:7707251341
+L1 Cache Misses:12450844
+L1 Miss Rate:0.16%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 4
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:12540507372
+Instructions:30716988239
+IPC:2.45
+L1 Cache Loads:7898242121
+L1 Cache Misses:15962016
+L1 Miss Rate:0.2%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 8
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:14699818638
+Instructions:32251061096
+IPC:2.19
+L1 Cache Loads:8282192632
+L1 Cache Misses:22159859
+L1 Miss Rate:0.27%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:11842143426
+Instructions:30564653325
+IPC:2.58
+L1 Cache Loads:7833968607
+L1 Cache Misses:21545893
+L1 Miss Rate:0.28%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 4
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:14784924984
+Instructions:32892715826
+IPC:2.22
+L1 Cache Loads:8327278078
+L1 Cache Misses:42190729
+L1 Miss Rate:0.51%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 8
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:20172253571
+Instructions:37543865123
+IPC:1.86
+L1 Cache Loads:9313056161
+L1 Cache Misses:86864267
+L1 Miss Rate:0.93%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:13213202629
+Instructions:31785706580
+IPC:2.41
+L1 Cache Loads:8088019615
+L1 Cache Misses:34935564
+L1 Miss Rate:0.43%
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 4
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:cpu-edge-parallel-profiling
+Cycles:22053623353
+Instructions:39657059858
+IPC:1.8
+L1 Cache Loads:9521193201
+L1 Cache Misses:134911711
+L1 Miss Rate:1.42%
+
+

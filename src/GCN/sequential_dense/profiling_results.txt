@@ -1,0 +1,34 @@
+---------- Confronto architetturale ---------
+
+---------- Parametri ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:sequential-dense-profiling
+Cycles:2480708084
+Instructions:4970696887
+IPC:2.0
+L1 Cache Loads:1347851357
+L1 Cache Misses:47008838
+L1 Miss Rate:3.49%
+
+
+---------- Parametri ----------
+Dataset: ErdosRenyi_5k (Nodi: 5000, Archi: 2500928, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+---------- Esecuzioni ----------
+========================================
+RESULT implementation:sequential-dense-profiling
+Cycles:3444669073
+Instructions:4498445720
+IPC:1.31
+L1 Cache Loads:1106614011
+L1 Cache Misses:172082331
+L1 Miss Rate:15.55%
+
+

@@ -1,0 +1,46 @@
+---------- Confronto architetturale ---------
+
+---------- Descrizione Configurazione ----------
+Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
+Hidden dimension: 64
+Classi: 7
+Livelli: 2
+Modalita': cpu-dense-parallel
+---------- Risultati Medi (3 runs) ----------
+inference_ms=97.30
+graph_nodes_per_second=27855
+node_updates_per_second=55709
+messages_per_second=217159
+topology_memory_bytes=53060
+feature_memory_bytes=15522256
+label_memory_bytes=10832
+weight_memory_bytes=368640
+working_memory_bytes=60434256
+device_memory_bytes=0
+estimated_total_memory_bytes=76389044
+probability_checksum=14816581.2318
+prediction_checksum=4799450288154764542
+
+
+---------- Descrizione Configurazione ----------
+Dataset: ErdosRenyi_5k (Nodi: 5000, Archi: 2500928, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Modalita': cpu-dense-parallel
+---------- Risultati Medi (3 runs) ----------
+inference_ms=246.43
+graph_nodes_per_second=20299
+node_updates_per_second=40597
+messages_per_second=20306021
+topology_memory_bytes=10023716
+feature_memory_bytes=2560000
+label_memory_bytes=20000
+weight_memory_bytes=35328
+working_memory_bytes=105144096
+device_memory_bytes=0
+estimated_total_memory_bytes=117783140
+probability_checksum=68676640.1909
+prediction_checksum=16069906047165069251
+
+
