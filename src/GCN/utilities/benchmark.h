@@ -74,27 +74,30 @@ inline void reportResults(const std::string& implementation,
     }
 
     const double seconds = inference_ms / 1000.0;
-    const double graph_nodes_per_second = seconds > 0.0 ? num_nodes / seconds : 0.0;
-    const double node_updates_per_second = seconds > 0.0
-        ? static_cast<double>(num_nodes) * num_layers / seconds : 0.0;
-    const double messages_per_second = seconds > 0.0
-        ? static_cast<double>(num_edges) * num_layers / seconds : 0.0;
 
-    std::cout << std::fixed << std::setprecision(6)
-              << "RESULT implementation=" << implementation
-              << " inference_ms=" << inference_ms
-              << " graph_nodes_per_second=" << graph_nodes_per_second
-              << " node_updates_per_second=" << node_updates_per_second
-              << " messages_per_second=" << messages_per_second
-              << " topology_memory_bytes=" << memory.topology_bytes
-              << " feature_memory_bytes=" << memory.feature_bytes
-              << " label_memory_bytes=" << memory.label_bytes
-              << " weight_memory_bytes=" << memory.weight_bytes
-              << " working_memory_bytes=" << memory.working_bytes
-              << " device_memory_bytes=" << memory.device_bytes
-              << " estimated_total_memory_bytes=" << memory.totalBytes()
-              << " probability_checksum=" << probability_checksum
-              << " prediction_checksum=" << prediction_checksum << '\n';
+    const uint64_t graph_nodes_per_second = seconds > 0.0 
+        ? static_cast<uint64_t>(std::llround(num_nodes / seconds)) : 0;
+    const uint64_t node_updates_per_second = seconds > 0.0
+        ? static_cast<uint64_t>(std::llround(static_cast<double>(num_nodes) * num_layers / seconds)) : 0;
+    const uint64_t messages_per_second = seconds > 0.0
+        ? static_cast<uint64_t>(std::llround(static_cast<double>(num_edges) * num_layers / seconds)) : 0;
+
+    std::cout << "RESULT implementation=" << implementation << '\n'
+              << std::fixed << std::setprecision(2)
+              << "inference_ms=" << inference_ms << '\n'
+              << "graph_nodes_per_second=" << graph_nodes_per_second << '\n'
+              << "node_updates_per_second=" << node_updates_per_second << '\n'
+              << "messages_per_second=" << messages_per_second << '\n'
+              << "topology_memory_bytes=" << memory.topology_bytes << '\n'
+              << "feature_memory_bytes=" << memory.feature_bytes << '\n'
+              << "label_memory_bytes=" << memory.label_bytes << '\n'
+              << "weight_memory_bytes=" << memory.weight_bytes << '\n'
+              << "working_memory_bytes=" << memory.working_bytes << '\n'
+              << "device_memory_bytes=" << memory.device_bytes << '\n'
+              << "estimated_total_memory_bytes=" << memory.totalBytes() << '\n'
+              << std::setprecision(4)
+              << "probability_checksum=" << probability_checksum << '\n'
+              << "prediction_checksum=" << prediction_checksum << '\n';
 
     const char* output_path = std::getenv("GCN_OUTPUT_FILE");
     if (output_path == nullptr || output_path[0] == '\0') return;
@@ -103,7 +106,8 @@ inline void reportResults(const std::string& implementation,
         std::cerr << "Errore: impossibile scrivere GCN_OUTPUT_FILE=" << output_path << '\n';
         return;
     }
-    output << num_nodes << ' ' << num_classes << '\n' << std::setprecision(9);
+    
+    output << num_nodes << ' ' << num_classes << '\n' << std::setprecision(4);
     for (int node = 0; node < num_nodes; ++node) {
         const size_t offset = static_cast<size_t>(node) * num_classes;
         for (int c = 0; c < num_classes; ++c) {
