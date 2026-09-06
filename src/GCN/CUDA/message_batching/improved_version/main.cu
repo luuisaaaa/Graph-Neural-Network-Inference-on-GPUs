@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <cuda_runtime.h>
+#include <math_constants.h>
 #include "../../../utilities/benchmark.h"
 #include "../../../utilities/graph.h"
 #include "../../../utilities/inference.h"

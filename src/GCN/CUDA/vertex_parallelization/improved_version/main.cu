@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <math_constants.h>
 #include <cuda_runtime.h>
 
 #include "../../../utilities/benchmark.h"

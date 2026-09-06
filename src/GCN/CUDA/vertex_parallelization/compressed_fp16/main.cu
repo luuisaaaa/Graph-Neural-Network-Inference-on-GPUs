@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-
+#include <math_constants.h>
 #include <cuda_fp16.h>
 #include <cuda_runtime.h>
 
