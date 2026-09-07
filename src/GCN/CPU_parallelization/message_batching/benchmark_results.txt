@@ -453,10 +453,10 @@ Classi: 40
 Livelli: 2
 Modalita': cpu-message-batching
 ---------- Risultati Medi (3 runs) ----------
-inference_ms=4570.83
-graph_nodes_per_second=40238
-node_updates_per_second=80475
-messages_per_second=554222
+inference_ms=3450.01
+graph_nodes_per_second=49200
+node_updates_per_second=98400
+messages_per_second=677668
 topology_memory_bytes=5342348
 feature_memory_bytes=86703616
 label_memory_bytes=677372
@@ -464,7 +464,7 @@ weight_memory_bytes=43008
 working_memory_bytes=265453192
 device_memory_bytes=0
 estimated_total_memory_bytes=358219536
-probability_checksum=297316511015.4155
+probability_checksum=297316511020.9421
 prediction_checksum=13795661908192190761
 
 

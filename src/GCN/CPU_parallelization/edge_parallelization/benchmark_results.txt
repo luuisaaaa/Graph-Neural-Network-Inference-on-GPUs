@@ -210,10 +210,10 @@ Classi: 10
 Livelli: 2
 Modalita': cpu-edge-parallel
 ---------- Risultati Medi (3 runs) ----------
-inference_ms=2774.65
-graph_nodes_per_second=180991
-node_updates_per_second=361982
-messages_per_second=3620983
+inference_ms=3591.71
+graph_nodes_per_second=141809
+node_updates_per_second=283617
+messages_per_second=2837083
 topology_memory_bytes=22006412
 feature_memory_bytes=256000000
 label_memory_bytes=2000000
@@ -221,8 +221,8 @@ weight_memory_bytes=35328
 working_memory_bytes=790006408
 device_memory_bytes=0
 estimated_total_memory_bytes=1070048148
-probability_checksum=694616324198.0822
-prediction_checksum=4593492320109568867
+probability_checksum=694616324328.8901
+prediction_checksum=12032292118098834917
 
 
 ---------- Descrizione Configurazione ----------
