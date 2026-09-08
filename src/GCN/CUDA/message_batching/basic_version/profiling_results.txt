@@ -1,19 +1,35 @@
 ---------- Confronto architetturale ---------
 
----------- Parametri ----------
+c---------- Parametri ----------
 Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
 Hidden dimension: 64
 Classi: 7
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: aggregate_batch_kernel ---
 RESULT implementation:cuda-message-batching-basic-profiling
-Achieved Occupancy:23.82%
-DRAM Throughput:13.2%
-L2 Cache Hit Rate:95.35%
-SM Throughput:7.52%
+Achieved Occupancy:9.24%
+DRAM Throughput:13.21%
+L2 Cache Hit Rate:95.3%
+SM Throughput:7.49%
 IPC (per SM):0.06
+
+--- KERNEL: update_kernel ---
+RESULT implementation:cuda-message-batching-basic-profiling
+Achieved Occupancy:6.45%
+DRAM Throughput:22.79%
+L2 Cache Hit Rate:65.56%
+SM Throughput:4.86%
+IPC (per SM):0.21
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-message-batching-basic-profiling
+Achieved Occupancy:4.83%
+DRAM Throughput:2.84%
+L2 Cache Hit Rate:91.19%
+SM Throughput:3.06%
+IPC (per SM):0.58
 
 
 ---------- Parametri ----------
@@ -23,13 +39,29 @@ Classi: 40
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: aggregate_batch_kernel ---
 RESULT implementation:cuda-message-batching-basic-profiling
-Achieved Occupancy:24.68%
-DRAM Throughput:7.19%
-L2 Cache Hit Rate:94.22%
+Achieved Occupancy:7.88%
+DRAM Throughput:7.14%
+L2 Cache Hit Rate:94.29%
 SM Throughput:4.41%
 IPC (per SM):0.05
+
+--- KERNEL: update_kernel ---
+RESULT implementation:cuda-message-batching-basic-profiling
+Achieved Occupancy:88.75%
+DRAM Throughput:40.02%
+L2 Cache Hit Rate:58.06%
+SM Throughput:5.63%
+IPC (per SM):0.06
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-message-batching-basic-profiling
+Achieved Occupancy:88.52%
+DRAM Throughput:24.69%
+L2 Cache Hit Rate:91.09%
+SM Throughput:6.36%
+IPC (per SM):0.11
 
 
 ---------- Parametri ----------
@@ -39,10 +71,26 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: aggregate_batch_kernel ---
 RESULT implementation:cuda-message-batching-basic-profiling
-Achieved Occupancy:25.02%
+Achieved Occupancy:9.78%
 DRAM Throughput:14.56%
-L2 Cache Hit Rate:93.86%
-SM Throughput:8.06%
+L2 Cache Hit Rate:93.89%
+SM Throughput:8.09%
 IPC (per SM):0.07
+
+--- KERNEL: update_kernel ---
+RESULT implementation:cuda-message-batching-basic-profiling
+Achieved Occupancy:84.19%
+DRAM Throughput:39.54%
+L2 Cache Hit Rate:54.41%
+SM Throughput:5.49%
+IPC (per SM):0.06
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-message-batching-basic-profiling
+Achieved Occupancy:81.05%
+DRAM Throughput:9.73%
+L2 Cache Hit Rate:95.35%
+SM Throughput:6.1%
+IPC (per SM):0.25

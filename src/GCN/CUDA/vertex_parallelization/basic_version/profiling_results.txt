@@ -1,36 +1,28 @@
 ---------- Confronto architetturale ---------
 
 
---------- Parametri ----------
+c---------- Parametri ----------
 Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
 Hidden dimension: 64
 Classi: 7
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-basic-profiling
-Achieved Occupancy:13.88%
+Achieved Occupancy:1.73%
 DRAM Throughput:0.66%
-L2 Cache Hit Rate:93.9%
+L2 Cache Hit Rate:93.95%
 SM Throughput:1.66%
 IPC (per SM):0.3
 
-
----------- Parametri ----------
-Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
-Hidden dimension: 64
-Classi: 40
-Livelli: 2
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
+--- KERNEL: softmax_kernel ---
 RESULT implementation:cuda-vertex-basic-profiling
-Achieved Occupancy:32.4%
-DRAM Throughput:14.48%
-L2 Cache Hit Rate:12.9%
-SM Throughput:3.4%
-IPC (per SM):0.19
+Achieved Occupancy:4.69%
+DRAM Throughput:2.81%
+L2 Cache Hit Rate:91.62%
+SM Throughput:2.97%
+IPC (per SM):0.58
 
 
 ---------- Parametri ----------
@@ -40,10 +32,68 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-basic-profiling
-Achieved Occupancy:84.19%
-DRAM Throughput:40.86%
-L2 Cache Hit Rate:18.44%
-SM Throughput:2.33%
-IPC (per SM):0.18
+Achieved Occupancy:45.87%
+DRAM Throughput:45.66%
+L2 Cache Hit Rate:18.16%
+SM Throughput:1.49%
+IPC (per SM):0.06
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-basic-profiling
+Achieved Occupancy:80.68%
+DRAM Throughput:9.93%
+L2 Cache Hit Rate:95.46%
+SM Throughput:6.08%
+IPC (per SM):0.25
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-basic-profiling
+Achieved Occupancy:11.07%
+DRAM Throughput:14.52%
+L2 Cache Hit Rate:12.99%
+SM Throughput:3.12%
+IPC (per SM):0.14
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-basic-profiling
+Achieved Occupancy:88.35%
+DRAM Throughput:25.22%
+L2 Cache Hit Rate:90.52%
+SM Throughput:6.35%
+IPC (per SM):0.11
+
+
+---------- Impatto della coalescenza in memoria su GPU ----------
+
+---------- Parametri ----------
+Dataset: PubMed (Nodi: 19717, Archi: 88648, Dim. Feature: 500)
+Hidden dimension: 64
+Classi: 3
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-basic-profiling
+Achieved Occupancy:25.49%
+DRAM Throughput:44.47%
+L2 Cache Hit Rate:35.41%
+SM Throughput:8.16%
+IPC (per SM):0.23
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-basic-profiling
+Achieved Occupancy:32.59%
+DRAM Throughput:8.69%
+L2 Cache Hit Rate:84.44%
+SM Throughput:13.15%
+IPC (per SM):0.72

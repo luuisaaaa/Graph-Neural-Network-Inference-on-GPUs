@@ -1,35 +1,28 @@
 ---------- Confronto architetturale ---------
 
----------- Parametri ----------
+
+c---------- Parametri ----------
 Dataset: Cora (Nodi: 2708, Archi: 10556, Dim. Feature: 1433)
 Hidden dimension: 64
 Classi: 7
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-compressed-fp16-profiling
-Achieved Occupancy:62.54%
-DRAM Throughput:0.3%
-L2 Cache Hit Rate:94.75%
-SM Throughput:17.45%
-IPC (per SM):2.12
+Achieved Occupancy:20.47%
+DRAM Throughput:0.29%
+L2 Cache Hit Rate:92.98%
+SM Throughput:17.38%
+IPC (per SM):2.14
 
-
----------- Parametri ----------
-Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
-Hidden dimension: 64
-Classi: 40
-Livelli: 2
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
+--- KERNEL: softmax_from_half_kernel ---
 RESULT implementation:cuda-vertex-compressed-fp16-profiling
-Achieved Occupancy:28.93%
-DRAM Throughput:3.88%
-L2 Cache Hit Rate:56.38%
-SM Throughput:6.62%
-IPC (per SM):0.61
+Achieved Occupancy:59.82%
+DRAM Throughput:4.66%
+L2 Cache Hit Rate:77.75%
+SM Throughput:37.12%
+IPC (per SM):1.92
 
 
 ---------- Parametri ----------
@@ -39,10 +32,44 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-compressed-fp16-profiling
-Achieved Occupancy:77.28%
-DRAM Throughput:9.32%
-L2 Cache Hit Rate:69.91%
-SM Throughput:42.12%
+Achieved Occupancy:47.84%
+DRAM Throughput:9.33%
+L2 Cache Hit Rate:70.2%
+SM Throughput:42.14%
 IPC (per SM):1.94
+
+--- KERNEL: softmax_from_half_kernel ---
+RESULT implementation:cuda-vertex-compressed-fp16-profiling
+Achieved Occupancy:86.27%
+DRAM Throughput:11.17%
+L2 Cache Hit Rate:78.7%
+SM Throughput:64.68%
+IPC (per SM):2.47
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-compressed-fp16-profiling
+Achieved Occupancy:8.4%
+DRAM Throughput:3.8%
+L2 Cache Hit Rate:56.36%
+SM Throughput:6.73%
+IPC (per SM):0.62
+
+--- KERNEL: softmax_from_half_kernel ---
+RESULT implementation:cuda-vertex-compressed-fp16-profiling
+Achieved Occupancy:86.15%
+DRAM Throughput:27.35%
+L2 Cache Hit Rate:83.66%
+SM Throughput:66.73%
+IPC (per SM):2.68
+
+

@@ -10,6 +10,13 @@ OUTPUT_TXT = "gpu_profiling_results.txt"
 DATASET_DIR = "../../dataset/converted"
 SEED = 42
 
+# --- KERNEL DA PROFILARE ---
+KERNELS_TO_PROFILE = [
+    "aggregate_batch_kernel",
+    "update_kernel",
+    "softmax_kernel"
+]
+
 # --- COMBINAZIONI ---
 datasets = ["Cora", "BarabasiAlbert_100k", "ogbn-arxiv"] 
 hidden_dims = [64]
@@ -17,7 +24,7 @@ layers_list = [2]
 
 # Metriche richieste da Nsight Compute
 METRICS = [
-    "sm__warps_active.avg.pct_of_peak_sustained_active",  # Achieved Occupancy
+    "sm__warps_active.avg.pct_of_peak_sustained_elapsed", # Achieved Occupancy (Max 100%)
     "dram__throughput.avg.pct_of_peak_sustained_elapsed", # DRAM Throughput
     "lts__t_sector_hit_rate.pct",                         # L2 Cache Hit Rate
     "sm__throughput.avg.pct_of_peak_sustained_elapsed",   # SM / Compute Throughput
@@ -62,68 +69,76 @@ if __name__ == "__main__":
             f_txt.write(f"Target: CUDA GPU\n")
             f_txt.write(f"---------- Esecuzioni ----------\n")
 
-            print(f"Eseguo: {dataset} | Hidden: {hidden} | Livelli: {layers}...")
+            print(f"\nEseguo config: {dataset} | Hidden: {hidden} | Livelli: {layers}...")
             
-            # Attenzione al percorso dei pesi: in CUDA solitamente si trova a 5 livelli di profondità
+            # Attenzione al percorso dei pesi
             pesi_dir = f"../../../../../weights/{dataset}/h{hidden}_l{layers}_seed{SEED}"
             
-           cmd = [
-                "ncu",
-                "--launch-count", "1",
-                "--metrics", metrics_str,
-                EXE_NAME, str(dataset), str(hidden), str(classes), str(layers), pesi_dir
-            ]
-            
-            proc = subprocess.run(cmd, cwd=EXE_DIR, capture_output=True, text=True)
-            output_lines = proc.stdout.strip().split("\n")
-            
-            if proc.returncode != 0 and len(output_lines) <= 1:
-                print(f"\n[!] Errore durante l'esecuzione di: {' '.join(cmd)}")
-                print(f"Codice uscita: {proc.returncode}")
-                print(f"Stderr:\n{proc.stderr}")
-                sys.exit(1)
-            
-            # Estrazione dinamica dell'implementazione
-            implementation_mode = "unknown"
-            for out_line in output_lines:
-                if out_line.startswith("RESULT implementation="):
-                    implementation_mode = out_line.split("=", 1)[1].strip()
-                    break
+            # --- CICLO SUI KERNEL ---
+            for kernel in KERNELS_TO_PROFILE:
+                print(f"  -> Profilazione kernel: {kernel}")
+                
+                cmd = [
+                    "ncu",
+                    "--kernel-name", kernel,
+                    "--launch-count", "1",
+                    "--metrics", metrics_str,
+                    EXE_NAME, str(dataset), str(hidden), str(classes), str(layers), pesi_dir
+                ]
+                
+                proc = subprocess.run(cmd, cwd=EXE_DIR, capture_output=True, text=True)
+                output_lines = proc.stdout.strip().split("\n")
+                
+                if proc.returncode != 0 and len(output_lines) <= 1:
+                    print(f"\n[!] Errore durante l'esecuzione di: {' '.join(cmd)}")
+                    print(f"Codice uscita: {proc.returncode}")
+                    print(f"Stderr:\n{proc.stderr}")
+                    sys.exit(1)
+                
+                # Estrazione dinamica dell'implementazione
+                implementation_mode = "unknown"
+                for out_line in output_lines:
+                    if out_line.startswith("RESULT implementation="):
+                        implementation_mode = out_line.split("=", 1)[1].strip()
+                        break
 
-            # Dizionari per accumulare i valori dei kernel (ncu ne stampa uno per ogni lancio)
-            accumulators = {m: [] for m in METRICS}
-            
-            # Parsing delle metriche ncu
-            for line in output_lines:
-                line_lower = line.lower()
-                for m in METRICS:
-                    if m.lower() in line_lower:
-                        parts = line.strip().split()
-                        for part in reversed(parts):
-                            try:
-                                val = float(part.replace(",", ""))
-                                accumulators[m].append(val)
-                                break
-                            except ValueError:
-                                continue
+                # Dizionari per accumulare i valori
+                accumulators = {m: [] for m in METRICS}
+                
+                # Parsing delle metriche ncu per questo kernel specifico
+                for line in output_lines:
+                    line_lower = line.lower()
+                    for m in METRICS:
+                        if m.lower() in line_lower:
+                            parts = line.strip().split()
+                            for part in reversed(parts):
+                                try:
+                                    val = float(part.replace(",", ""))
+                                    accumulators[m].append(val)
+                                    break
+                                except ValueError:
+                                    continue
 
-            def avg_metric(m_name):
-                vals = accumulators[m_name]
-                return round(sum(vals) / len(vals), 2) if vals else 0.0
+                def avg_metric(m_name):
+                    vals = accumulators[m_name]
+                    return round(sum(vals) / len(vals), 2) if vals else 0.0
 
-            occupancy = avg_metric("sm__warps_active.avg.pct_of_peak_sustained_active")
-            dram_thr  = avg_metric("dram__throughput.avg.pct_of_peak_sustained_elapsed")
-            l2_hit    = avg_metric("lts__t_sector_hit_rate.pct")
-            sm_thr    = avg_metric("sm__throughput.avg.pct_of_peak_sustained_elapsed")
-            ipc_sm    = avg_metric("sm__inst_executed.avg.per_cycle_active")
+                occupancy = avg_metric("sm__warps_active.avg.pct_of_peak_sustained_elapsed")
+                dram_thr  = avg_metric("dram__throughput.avg.pct_of_peak_sustained_elapsed")
+                l2_hit    = avg_metric("lts__t_sector_hit_rate.pct")
+                sm_thr    = avg_metric("sm__throughput.avg.pct_of_peak_sustained_elapsed")
+                ipc_sm    = avg_metric("sm__inst_executed.avg.per_cycle_active")
+                
+                # Stampa sul file dividendo per kernel
+                f_txt.write(f"--- KERNEL: {kernel} ---\n")
+                f_txt.write(f"RESULT implementation:{implementation_mode}-profiling\n")
+                f_txt.write(f"Achieved Occupancy:{occupancy}%\n")
+                f_txt.write(f"DRAM Throughput:{dram_thr}%\n")
+                f_txt.write(f"L2 Cache Hit Rate:{l2_hit}%\n")
+                f_txt.write(f"SM Throughput:{sm_thr}%\n")
+                f_txt.write(f"IPC (per SM):{ipc_sm}\n\n")
+                f_txt.flush()
             
-            f_txt.write("========================================\n")
-            f_txt.write(f"RESULT implementation:{implementation_mode}-profiling\n")
-            f_txt.write(f"Achieved Occupancy:{occupancy}%\n")
-            f_txt.write(f"DRAM Throughput:{dram_thr}%\n")
-            f_txt.write(f"L2 Cache Hit Rate:{l2_hit}%\n")
-            f_txt.write(f"SM Throughput:{sm_thr}%\n")
-            f_txt.write(f"IPC (per SM):{ipc_sm}\n\n\n")
-            f_txt.flush()
+            f_txt.write("\n") # Spazio per separare le diverse configurazioni
 
     print(f"\nProfilazione GPU completata! File aggiornato in: {OUTPUT_TXT}")

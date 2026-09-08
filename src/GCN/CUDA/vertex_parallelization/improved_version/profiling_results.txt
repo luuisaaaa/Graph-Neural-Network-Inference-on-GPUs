@@ -7,13 +7,45 @@ Classi: 7
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:62.04%
+Achieved Occupancy:20.36%
 DRAM Throughput:0.82%
-L2 Cache Hit Rate:90.95%
-SM Throughput:15.92%
+L2 Cache Hit Rate:92.15%
+SM Throughput:16.33%
 IPC (per SM):1.99
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:59.6%
+DRAM Throughput:3.1%
+L2 Cache Hit Rate:84.87%
+SM Throughput:38.12%
+IPC (per SM):1.83
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:59.72%
+DRAM Throughput:16.61%
+L2 Cache Hit Rate:68.85%
+SM Throughput:51.6%
+IPC (per SM):1.78
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.86%
+DRAM Throughput:10.33%
+L2 Cache Hit Rate:82.28%
+SM Throughput:66.62%
+IPC (per SM):2.36
 
 
 ---------- Parametri ----------
@@ -23,32 +55,26 @@ Classi: 40
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:32.97%
-DRAM Throughput:5.85%
-L2 Cache Hit Rate:56.38%
-SM Throughput:8.29%
-IPC (per SM):0.68
+Achieved Occupancy:9.84%
+DRAM Throughput:5.8%
+L2 Cache Hit Rate:56.25%
+SM Throughput:8.53%
+IPC (per SM):0.7
 
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 64
-Classi: 10
-Livelli: 2
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
+--- KERNEL: softmax_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.45%
-DRAM Throughput:16.65%
-L2 Cache Hit Rate:68.99%
-SM Throughput:51.55%
-IPC (per SM):1.78
+Achieved Occupancy:85.98%
+DRAM Throughput:34.53%
+L2 Cache Hit Rate:73.8%
+SM Throughput:62.02%
+IPC (per SM):2.36
+
 
 
 ---------- Analisi topologica e skewed degree distribution ---------
+
 ---------- Parametri ----------
 Dataset: ErdosRenyi_100k (Nodi: 100000, Archi: 998110, Dim. Feature: 128)
 Hidden dimension: 64
@@ -56,13 +82,21 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:78.43%
-DRAM Throughput:8.65%
-L2 Cache Hit Rate:86.55%
-SM Throughput:79.6%
+Achieved Occupancy:78.15%
+DRAM Throughput:8.66%
+L2 Cache Hit Rate:86.53%
+SM Throughput:79.57%
 IPC (per SM):2.08
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.59%
+DRAM Throughput:10.28%
+L2 Cache Hit Rate:82.76%
+SM Throughput:66.58%
+IPC (per SM):2.35
 
 
 ---------- Parametri ----------
@@ -72,13 +106,21 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.36%
-DRAM Throughput:16.62%
-L2 Cache Hit Rate:69.11%
-SM Throughput:51.57%
+Achieved Occupancy:59.59%
+DRAM Throughput:16.6%
+L2 Cache Hit Rate:68.71%
+SM Throughput:51.61%
 IPC (per SM):1.78
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:86.03%
+DRAM Throughput:10.29%
+L2 Cache Hit Rate:82.69%
+SM Throughput:66.7%
+IPC (per SM):2.36
 
 
 ---------- Parametri ----------
@@ -88,16 +130,27 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:93.81%
+Achieved Occupancy:93.62%
 DRAM Throughput:1.28%
-L2 Cache Hit Rate:93.11%
-SM Throughput:87.63%
+L2 Cache Hit Rate:93.29%
+SM Throughput:87.59%
 IPC (per SM):2.3
 
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.54%
+DRAM Throughput:10.3%
+L2 Cache Hit Rate:82.7%
+SM Throughput:66.5%
+IPC (per SM):2.35
 
------------ Impatto della coalescenza in memoria su GPU -----------
+
+
+
+---------- Impatto della coalescenza in memoria su GPU ---------
+
 ---------- Parametri ----------
 Dataset: PubMed (Nodi: 19717, Archi: 88648, Dim. Feature: 500)
 Hidden dimension: 64
@@ -105,48 +158,26 @@ Classi: 3
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:69.05%
-DRAM Throughput:3.56%
-L2 Cache Hit Rate:90.87%
-SM Throughput:48.39%
+Achieved Occupancy:60.04%
+DRAM Throughput:3.66%
+L2 Cache Hit Rate:88.85%
+SM Throughput:48.58%
 IPC (per SM):2.23
 
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 64
-Classi: 10
-Livelli: 2
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
+--- KERNEL: softmax_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.44%
-DRAM Throughput:16.6%
-L2 Cache Hit Rate:69.52%
-SM Throughput:51.61%
-IPC (per SM):1.78
+Achieved Occupancy:83.07%
+DRAM Throughput:2.19%
+L2 Cache Hit Rate:90.57%
+SM Throughput:62.13%
+IPC (per SM):2.28
 
 
----------- Parametri ----------
-Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
-Hidden dimension: 64
-Classi: 40
-Livelli: 2
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:33.12%
-DRAM Throughput:5.86%
-L2 Cache Hit Rate:56.19%
-SM Throughput:8.29%
-IPC (per SM):0.68
 
+---------- Scalabilità sulla dimensione del grafo  ---------
 
------------- Scalabilità sulla dimensione del grafo -----------
 ---------- Parametri ----------
 Dataset: ErdosRenyi_10k (Nodi: 10000, Archi: 100162, Dim. Feature: 128)
 Hidden dimension: 64
@@ -154,13 +185,21 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:78.05%
-DRAM Throughput:1.79%
-L2 Cache Hit Rate:97.47%
-SM Throughput:77.35%
+Achieved Occupancy:76.32%
+DRAM Throughput:1.81%
+L2 Cache Hit Rate:97.06%
+SM Throughput:78.56%
 IPC (per SM):2.09
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:77.41%
+DRAM Throughput:6.1%
+L2 Cache Hit Rate:82.09%
+SM Throughput:56.99%
+IPC (per SM):2.2
 
 
 ---------- Parametri ----------
@@ -170,13 +209,21 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:78.37%
+Achieved Occupancy:77.66%
 DRAM Throughput:7.72%
-L2 Cache Hit Rate:87.83%
-SM Throughput:79.29%
+L2 Cache Hit Rate:88.1%
+SM Throughput:79.2%
 IPC (per SM):2.08
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:84.84%
+DRAM Throughput:7.68%
+L2 Cache Hit Rate:82.53%
+SM Throughput:65.48%
+IPC (per SM):2.34
 
 
 ---------- Parametri ----------
@@ -186,13 +233,21 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:78.46%
-DRAM Throughput:8.66%
-L2 Cache Hit Rate:86.52%
-SM Throughput:79.55%
+Achieved Occupancy:78.25%
+DRAM Throughput:8.67%
+L2 Cache Hit Rate:86.62%
+SM Throughput:79.62%
 IPC (per SM):2.08
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.63%
+DRAM Throughput:10.31%
+L2 Cache Hit Rate:82.71%
+SM Throughput:66.5%
+IPC (per SM):2.35
 
 
 ---------- Parametri ----------
@@ -202,16 +257,23 @@ Classi: 10
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:78.44%
+Achieved Occupancy:78.38%
 DRAM Throughput:9.41%
-L2 Cache Hit Rate:85.48%
-SM Throughput:79.63%
+L2 Cache Hit Rate:85.47%
+SM Throughput:79.64%
 IPC (per SM):2.07
 
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:86.35%
+DRAM Throughput:12.47%
+L2 Cache Hit Rate:82.68%
+SM Throughput:67.38%
+IPC (per SM):2.36
 
-------------- Impatto della profondità e dimensione nascosta sul modello ----------
+
 ---------- Parametri ----------
 Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
 Hidden dimension: 64
@@ -219,13 +281,265 @@ Classi: 40
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:32.94%
-DRAM Throughput:5.85%
-L2 Cache Hit Rate:56.51%
-SM Throughput:8.12%
-IPC (per SM):0.68
+Achieved Occupancy:9.58%
+DRAM Throughput:5.79%
+L2 Cache Hit Rate:56.24%
+SM Throughput:8.26%
+IPC (per SM):0.7
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.97%
+DRAM Throughput:34.6%
+L2 Cache Hit Rate:73.8%
+SM Throughput:62.08%
+IPC (per SM):2.36
+
+
+
+
+---------- Impatto della profondità e dimensione nascosta sul modello ---------
+
+c---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:59.72%
+DRAM Throughput:16.56%
+L2 Cache Hit Rate:68.98%
+SM Throughput:51.56%
+IPC (per SM):1.78
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.51%
+DRAM Throughput:10.28%
+L2 Cache Hit Rate:82.83%
+SM Throughput:66.38%
+IPC (per SM):2.35
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:59.67%
+DRAM Throughput:16.62%
+L2 Cache Hit Rate:69.04%
+SM Throughput:51.58%
+IPC (per SM):1.78
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.85%
+DRAM Throughput:10.31%
+L2 Cache Hit Rate:82.64%
+SM Throughput:66.69%
+IPC (per SM):2.36
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 10
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:59.68%
+DRAM Throughput:16.64%
+L2 Cache Hit Rate:68.93%
+SM Throughput:51.58%
+IPC (per SM):1.78
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.69%
+DRAM Throughput:10.32%
+L2 Cache Hit Rate:82.67%
+SM Throughput:66.53%
+IPC (per SM):2.35
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:60.36%
+DRAM Throughput:16.42%
+L2 Cache Hit Rate:71.26%
+SM Throughput:51.59%
+IPC (per SM):1.76
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.77%
+DRAM Throughput:10.28%
+L2 Cache Hit Rate:82.65%
+SM Throughput:66.61%
+IPC (per SM):2.36
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:60.38%
+DRAM Throughput:16.54%
+L2 Cache Hit Rate:71.23%
+SM Throughput:51.58%
+IPC (per SM):1.76
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.6%
+DRAM Throughput:10.3%
+L2 Cache Hit Rate:82.76%
+SM Throughput:66.57%
+IPC (per SM):2.35
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 128
+Classi: 10
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:60.45%
+DRAM Throughput:16.48%
+L2 Cache Hit Rate:71.37%
+SM Throughput:51.62%
+IPC (per SM):1.76
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.83%
+DRAM Throughput:10.25%
+L2 Cache Hit Rate:82.71%
+SM Throughput:66.51%
+IPC (per SM):2.35
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:61.02%
+DRAM Throughput:16.58%
+L2 Cache Hit Rate:72.57%
+SM Throughput:51.74%
+IPC (per SM):1.74
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.75%
+DRAM Throughput:10.26%
+L2 Cache Hit Rate:82.99%
+SM Throughput:66.52%
+IPC (per SM):2.35
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:60.9%
+DRAM Throughput:16.77%
+L2 Cache Hit Rate:72.43%
+SM Throughput:51.65%
+IPC (per SM):1.75
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.79%
+DRAM Throughput:10.32%
+L2 Cache Hit Rate:82.81%
+SM Throughput:66.61%
+IPC (per SM):2.35
+
+
+---------- Parametri ----------
+Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 10
+Livelli: 8
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:60.95%
+DRAM Throughput:16.65%
+L2 Cache Hit Rate:72.61%
+SM Throughput:51.74%
+IPC (per SM):1.75
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.58%
+DRAM Throughput:10.47%
+L2 Cache Hit Rate:83.17%
+SM Throughput:66.31%
+IPC (per SM):2.35
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 64
+Classi: 40
+Livelli: 2
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:9.77%
+DRAM Throughput:6.07%
+L2 Cache Hit Rate:56.11%
+SM Throughput:8.38%
+IPC (per SM):0.67
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.93%
+DRAM Throughput:34.59%
+L2 Cache Hit Rate:73.78%
+SM Throughput:62.02%
+IPC (per SM):2.36
 
 
 ---------- Parametri ----------
@@ -235,13 +549,21 @@ Classi: 40
 Livelli: 4
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:33.22%
-DRAM Throughput:5.86%
-L2 Cache Hit Rate:56.48%
-SM Throughput:8.26%
-IPC (per SM):0.68
+Achieved Occupancy:9.69%
+DRAM Throughput:5.95%
+L2 Cache Hit Rate:56.37%
+SM Throughput:8.37%
+IPC (per SM):0.69
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:86.0%
+DRAM Throughput:34.57%
+L2 Cache Hit Rate:73.74%
+SM Throughput:62.03%
+IPC (per SM):2.36
 
 
 ---------- Parametri ----------
@@ -251,13 +573,21 @@ Classi: 40
 Livelli: 8
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:33.1%
-DRAM Throughput:6.05%
-L2 Cache Hit Rate:56.28%
-SM Throughput:8.24%
+Achieved Occupancy:9.75%
+DRAM Throughput:5.75%
+L2 Cache Hit Rate:56.4%
+SM Throughput:8.45%
 IPC (per SM):0.68
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.8%
+DRAM Throughput:34.58%
+L2 Cache Hit Rate:73.79%
+SM Throughput:61.97%
+IPC (per SM):2.36
 
 
 ---------- Parametri ----------
@@ -267,13 +597,21 @@ Classi: 40
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:33.8%
-DRAM Throughput:5.96%
-L2 Cache Hit Rate:58.48%
-SM Throughput:8.43%
+Achieved Occupancy:9.92%
+DRAM Throughput:5.83%
+L2 Cache Hit Rate:58.3%
+SM Throughput:8.44%
 IPC (per SM):0.68
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.99%
+DRAM Throughput:34.54%
+L2 Cache Hit Rate:73.88%
+SM Throughput:62.06%
+IPC (per SM):2.36
 
 
 ---------- Parametri ----------
@@ -283,14 +621,22 @@ Classi: 40
 Livelli: 4
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:33.66%
-DRAM Throughput:5.92%
+Achieved Occupancy:9.69%
+DRAM Throughput:5.97%
 L2 Cache Hit Rate:58.41%
 SM Throughput:8.24%
 IPC (per SM):0.68
 
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.32%
+DRAM Throughput:34.46%
+L2 Cache Hit Rate:73.76%
+SM Throughput:61.53%
+IPC (per SM):2.34
+
 
 ---------- Parametri ----------
 Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
@@ -299,13 +645,21 @@ Classi: 40
 Livelli: 8
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:33.33%
-DRAM Throughput:6.02%
-L2 Cache Hit Rate:58.3%
-SM Throughput:8.28%
+Achieved Occupancy:10.19%
+DRAM Throughput:6.06%
+L2 Cache Hit Rate:58.2%
+SM Throughput:8.57%
 IPC (per SM):0.67
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.81%
+DRAM Throughput:35.16%
+L2 Cache Hit Rate:73.77%
+SM Throughput:61.61%
+IPC (per SM):2.34
 
 
 ---------- Parametri ----------
@@ -315,29 +669,45 @@ Classi: 40
 Livelli: 2
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:33.56%
-DRAM Throughput:5.83%
-L2 Cache Hit Rate:59.0%
-SM Throughput:8.51%
-IPC (per SM):0.67
-
-
----------- Parametri ----------
-Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
-Hidden dimension: 256
-Classi: 40
-Livelli: 4
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:34.24%
-DRAM Throughput:5.81%
+Achieved Occupancy:9.86%
+DRAM Throughput:6.03%
 L2 Cache Hit Rate:58.83%
-SM Throughput:8.17%
-IPC (per SM):0.68
+SM Throughput:8.2%
+IPC (per SM):0.67
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.39%
+DRAM Throughput:34.5%
+L2 Cache Hit Rate:73.76%
+SM Throughput:61.63%
+IPC (per SM):2.34
+
+
+---------- Parametri ----------
+Dataset: ogbn-arxiv (Nodi: 169343, Archi: 1166243, Dim. Feature: 128)
+Hidden dimension: 256
+Classi: 40
+Livelli: 4
+Target: CUDA GPU
+---------- Esecuzioni ----------
+--- KERNEL: vertex_layer_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:9.72%
+DRAM Throughput:6.25%
+L2 Cache Hit Rate:58.59%
+SM Throughput:8.1%
+IPC (per SM):0.66
+
+--- KERNEL: softmax_kernel ---
+RESULT implementation:cuda-vertex-improved-profiling
+Achieved Occupancy:85.94%
+DRAM Throughput:35.18%
+L2 Cache Hit Rate:73.8%
+SM Throughput:61.71%
+IPC (per SM):2.34
 
 
 ---------- Parametri ----------
@@ -347,156 +717,18 @@ Classi: 40
 Livelli: 8
 Target: CUDA GPU
 ---------- Esecuzioni ----------
-========================================
+--- KERNEL: vertex_layer_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:34.12%
-DRAM Throughput:5.88%
-L2 Cache Hit Rate:58.68%
-SM Throughput:8.28%
-IPC (per SM):0.68
+Achieved Occupancy:9.75%
+DRAM Throughput:6.0%
+L2 Cache Hit Rate:58.41%
+SM Throughput:8.08%
+IPC (per SM):0.67
 
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 64
-Classi: 10
-Livelli: 2
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
+--- KERNEL: softmax_kernel ---
 RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.38%
-DRAM Throughput:16.65%
-L2 Cache Hit Rate:68.96%
-SM Throughput:51.54%
-IPC (per SM):1.78
-
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 64
-Classi: 10
-Livelli: 4
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.51%
-DRAM Throughput:16.63%
-L2 Cache Hit Rate:69.07%
-SM Throughput:51.56%
-IPC (per SM):1.78
-
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 64
-Classi: 10
-Livelli: 8
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.25%
-DRAM Throughput:16.66%
-L2 Cache Hit Rate:68.74%
-SM Throughput:51.55%
-IPC (per SM):1.78
-
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 128
-Classi: 10
-Livelli: 2
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.53%
-DRAM Throughput:16.59%
-L2 Cache Hit Rate:71.42%
-SM Throughput:51.6%
-IPC (per SM):1.76
-
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 128
-Classi: 10
-Livelli: 4
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.47%
-DRAM Throughput:16.55%
-L2 Cache Hit Rate:71.25%
-SM Throughput:51.6%
-IPC (per SM):1.76
-
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 128
-Classi: 10
-Livelli: 8
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.54%
-DRAM Throughput:16.53%
-L2 Cache Hit Rate:71.36%
-SM Throughput:51.62%
-IPC (per SM):1.76
-
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 256
-Classi: 10
-Livelli: 2
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.36%
-DRAM Throughput:16.69%
-L2 Cache Hit Rate:72.65%
-SM Throughput:51.71%
-IPC (per SM):1.74
-
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 256
-Classi: 10
-Livelli: 4
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.37%
-DRAM Throughput:16.66%
-L2 Cache Hit Rate:72.59%
-SM Throughput:51.71%
-IPC (per SM):1.74
-
-
----------- Parametri ----------
-Dataset: BarabasiAlbert_100k (Nodi: 100000, Archi: 999950, Dim. Feature: 128)
-Hidden dimension: 256
-Classi: 10
-Livelli: 8
-Target: CUDA GPU
----------- Esecuzioni ----------
-========================================
-RESULT implementation:cuda-vertex-improved-profiling
-Achieved Occupancy:79.3%
-DRAM Throughput:16.61%
-L2 Cache Hit Rate:72.79%
-SM Throughput:51.74%
-IPC (per SM):1.74
-
-
+Achieved Occupancy:85.86%
+DRAM Throughput:35.18%
+L2 Cache Hit Rate:73.74%
+SM Throughput:61.68%
+IPC (per SM):2.34
