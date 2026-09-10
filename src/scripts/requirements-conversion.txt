@@ -1,5 +1,0 @@
-numpy
-networkx
-ogb
-torch
-torch-geometric
